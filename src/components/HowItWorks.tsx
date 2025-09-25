@@ -17,6 +17,17 @@ export default function HowItWorks() {
   const [amount, setAmount] = useState<number>(1000);
   const presetValues = [500, 1000, 2500];
   const coins = useMemo(() => Math.round(amount * selected.rate), [amount, selected]);
+  const [coinAnimKey, setCoinAnimKey] = useState(0);
+
+  function handleSelectBrand(b: Brand) {
+    setSelected(b);
+    setCoinAnimKey((k) => k + 1);
+  }
+
+  function handleSetAmount(v: number) {
+    setAmount(v);
+    setCoinAnimKey((k) => k + 1);
+  }
   return (
     <section id="about" className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -52,16 +63,16 @@ export default function HowItWorks() {
             <div className="flex items-center gap-3">
               <button className="h-8 w-8 rounded-full border border-black/10 grid place-items-center">‹</button>
               <div className="flex-1 grid grid-cols-3 gap-4">
-                {BRANDS.map((b) => (
+                {BRANDS.map((b, idx) => (
                   <button
                     key={b.key}
                     className={`rounded-xl border p-4 flex items-center gap-3 text-left ${
                       selected.key === b.key ? "border-green-600 bg-green-50" : "border-black/10 hover:bg-black/5"
                     }`}
-                    onClick={() => setSelected(b)}
+                    onClick={() => handleSelectBrand(b)}
                   >
-                    <div className={`h-10 w-10 rounded-full grid place-items-center ${b.color}`}> </div>
-                    <div className="font-medium">{b.name}</div>
+                    <div className={`h-10 w-10 rounded-full grid place-items-center ${b.color} transition-transform duration-200 ${selected.key === b.key ? "scale-110" : "scale-100"}`}> </div>
+                    <div className="font-medium transition-colors duration-200">{b.name}</div>
                   </button>
                 ))}
               </div>
@@ -81,7 +92,7 @@ export default function HowItWorks() {
                 {presetValues.map((v) => (
                   <button
                     key={v}
-                    onClick={() => setAmount(v)}
+                    onClick={() => handleSetAmount(v)}
                     className={`h-12 rounded-xl border text-sm font-medium ${
                       amount === v ? "border-green-600 bg-green-50" : "border-black/15 hover:bg-black/5"
                     }`}
@@ -95,14 +106,14 @@ export default function HowItWorks() {
                   type="number"
                   className="w-full h-12 rounded-xl border border-black/15 px-4 outline-none focus:border-green-600"
                   value={amount}
-                  onChange={(e) => setAmount(Number(e.target.value || 0))}
+                  onChange={(e) => handleSetAmount(Number(e.target.value || 0))}
                   min={0}
                 />
               </div>
             </div>
 
             <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-200 p-8 text-center">
-              <div className="text-4xl font-bold">{coins} <span className="text-amber-500 text-lg align-top">₹</span></div>
+              <div key={coinAnimKey} className="text-4xl font-bold inline-block animate-coin-pop">{coins} <span className="text-amber-500 text-lg align-top">₹</span></div>
               <div className="text-black/70 mt-1">Corra Coins Earned</div>
             </div>
 

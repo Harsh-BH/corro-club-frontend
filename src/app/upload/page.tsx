@@ -26,6 +26,8 @@ function UploadContent() {
   const [selected, setSelected] = useState<Brand>(BRANDS[0]);
   const [amount, setAmount] = useState<string>("500");
   const [fileName, setFileName] = useState<string>("");
+  const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [dragging, setDragging] = useState<boolean>(false);
 
   useEffect(() => {
     const brandKey = params.get("brand");
@@ -39,7 +41,11 @@ function UploadContent() {
 
   function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    if (file) setFileName(file.name);
+    if (file) {
+      setFileName(file.name);
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    }
   }
 
   const canContinue = Boolean(fileName);
@@ -79,12 +85,12 @@ function UploadContent() {
                     <button
                       key={b.key}
                       onClick={() => setSelected(b)}
-                      className={`rounded-xl border p-4 flex items-center gap-3 text-left ${
+                      className={`rounded-xl border p-4 flex items-center gap-3 text-left transition transform duration-200 ${
                         selected.key === b.key ? "border-green-600 bg-green-50" : "border-black/15 hover:bg-black/5"
                       }`}
                     >
-                      <span className={`h-10 w-10 rounded-full ${b.color} grid place-items-center`} />
-                      <span className="font-medium">{b.name}</span>
+                      <span className={`h-10 w-10 rounded-full ${b.color} grid place-items-center transition-transform duration-200 ${selected.key === b.key ? "scale-110" : "scale-100"}`} />
+                      <span className="font-medium transition-colors">{b.name}</span>
                     </button>
                   ))}
                 </div>
@@ -94,7 +100,7 @@ function UploadContent() {
             </div>
 
             {/* Requirements */}
-            <div className="rounded-xl border border-blue-200 bg-blue-50 text-blue-700 p-4 text-sm">
+            <div className="rounded-xl border border-blue-200 bg-blue-50 text-blue-700 p-4 text-sm animate-fade-up">
               <ul className="list-disc pl-5 space-y-1">
                 <li>Make sure the receipt photo is clear</li>
                 <li>Total transaction value & Unique Order Id must be present on the receipt</li>
@@ -103,12 +109,36 @@ function UploadContent() {
 
             {/* Dropzone */}
             <div className="mt-6">
-              <label className="block rounded-xl border-2 border-dashed border-black/15 px-6 py-12 text-center text-black/70 cursor-pointer hover:bg-black/5">
+              <label
+                onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+                onDragLeave={() => setDragging(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setDragging(false);
+                  const file = e.dataTransfer.files?.[0];
+                  if (file) {
+                    setFileName(file.name);
+                    const url = URL.createObjectURL(file);
+                    setPreviewUrl(url);
+                  }
+                }}
+                className={`block rounded-xl border-2 border-dashed px-6 py-12 text-center text-black/70 cursor-pointer transition-colors ${
+                  dragging || previewUrl ? "border-green-500 bg-green-50" : "border-black/15 hover:bg-black/5"
+                }`}
+              >
                 <input type="file" accept="image/png,image/jpeg" className="hidden" onChange={onFileChange} />
-                <div className="mx-auto h-10 w-10 rounded-full border border-black/20 grid place-items-center text-xl">↥</div>
-                <div className="mt-3 font-medium">Click to upload or drag and drop</div>
-                <div className="text-xs text-black/50">PNG, JPG up to 10MB</div>
-                {fileName && <div className="mt-3 text-sm">Selected: <span className="font-medium">{fileName}</span></div>}
+                {previewUrl ? (
+                  <div className="animate-fade-in">
+                    <img src={previewUrl} alt="Preview" className="mx-auto max-h-56 rounded-lg drop-shadow-soft" />
+                    <div className="mt-3 text-sm">Selected: <span className="font-medium">{fileName}</span></div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="mx-auto h-10 w-10 rounded-full border border-black/20 grid place-items-center text-xl">↥</div>
+                    <div className="mt-3 font-medium">Click to upload or drag and drop</div>
+                    <div className="text-xs text-black/50">PNG, JPG up to 10MB</div>
+                  </>
+                )}
               </label>
             </div>
 
@@ -117,7 +147,7 @@ function UploadContent() {
               <label className="text-sm font-medium">Transaction Value (₹)</label>
               <div className="mt-1 relative">
                 <input
-                  className="w-full h-12 rounded-xl border border-black/15 px-4 pr-10 outline-none focus:border-green-600"
+                  className="w-full h-12 rounded-xl border border-black/15 px-4 pr-10 outline-none focus:border-green-600 transition"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   inputMode="numeric"
@@ -138,7 +168,7 @@ function UploadContent() {
 
             {/* Actions */}
             <div className="mt-6 flex items-center justify-center gap-3">
-              <button className="h-11 px-4 rounded-xl border border-black/15 bg-white hover:bg-black/5 flex items-center gap-2">
+              <button className="h-11 px-4 rounded-xl border border-black/15 bg-white hover:bg-black/5 flex items-center gap-2 transition active:scale-95">
                 <span className="h-6 w-6 rounded-md border border-black/15 grid place-items-center">📷</span>
                 Take Photo
               </button>
@@ -148,8 +178,8 @@ function UploadContent() {
                   const url = `/verify?brand=${encodeURIComponent(selected.key)}&amount=${encodeURIComponent(amount)}`;
                   window.location.href = url;
                 }}
-                className={`flex-1 h-12 rounded-xl text-white font-medium ${
-                  canContinue ? "bg-green-700 hover:bg-green-800" : "bg-black/20 cursor-not-allowed"
+                className={`flex-1 h-12 rounded-xl text-white font-medium transition ${
+                  canContinue ? "bg-green-700 hover:bg-green-800 active:scale-95" : "bg-black/20 cursor-not-allowed"
                 }`}
               >
                 Continue to Verify
