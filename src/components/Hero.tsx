@@ -15,7 +15,7 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-12 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        <div>
+        <div className="animate-fade-up">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
             One Club. <span className="text-green-700">Many</span> <span className="text-green-700">Brands.</span> Infinite Rewards.
           </h1>
@@ -35,7 +35,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative h-[420px] md:h-[520px]">
+        <div className="relative h-[420px] md:h-[520px] animate-fade-up delay-100">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative h-[360px] w-[360px]">
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[300px] w-[300px] rounded-full border border-black/10" />
@@ -47,7 +47,7 @@ export default function Hero() {
               </div>
 
               {/* Orbiting brands arranged evenly around the 300px ring (radius 150px) */}
-              <div className="absolute inset-0">
+              <div className="absolute inset-0 animate-rotate-slow">
                 {brands.map((b, index) => {
                   const angle = (360 / brands.length) * index;
                   const isLeft = angle > 90 && angle < 270;

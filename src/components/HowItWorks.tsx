@@ -1,8 +1,26 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+
+type Brand = { key: string; name: string; color: string; rate: number };
+
+const BRANDS: Brand[] = [
+  { key: "adidas", name: "Adidas", color: "bg-black text-white", rate: 0.15 },
+  { key: "decathlon", name: "Decathlon", color: "bg-blue-600 text-white", rate: 0.12 },
+  { key: "firstcry", name: "Firstcry", color: "bg-pink-500 text-white", rate: 0.1 },
+];
+
 export default function HowItWorks() {
+  const router = useRouter();
+  const [selected, setSelected] = useState<Brand>(BRANDS[0]);
+  const [amount, setAmount] = useState<number>(1000);
+  const presetValues = [500, 1000, 2500];
+  const coins = useMemo(() => Math.round(amount * selected.rate), [amount, selected]);
   return (
     <section id="about" className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        <div>
+        <div className="animate-fade-up">
           <h2 className="text-3xl sm:text-4xl font-bold mb-8">How to Earn Corra Coins?</h2>
           <ol className="space-y-8">
             <li className="flex items-start gap-4">
@@ -30,19 +48,21 @@ export default function HowItWorks() {
           </ol>
         </div>
         <div id="brands" className="w-full">
-          <div className="rounded-2xl border border-black/10 bg-white shadow-sm p-6">
+          <div className="rounded-2xl border border-black/10 bg-white shadow-sm p-6 animate-fade-up delay-100">
             <div className="flex items-center gap-3">
               <button className="h-8 w-8 rounded-full border border-black/10 grid place-items-center">‹</button>
               <div className="flex-1 grid grid-cols-3 gap-4">
-                {[
-                  { name: "Adidas", color: "bg-black text-white" },
-                  { name: "Decathlon", color: "bg-blue-600 text-white" },
-                  { name: "Firstcry", color: "bg-pink-500 text-white" },
-                ].map((b) => (
-                  <div key={b.name} className="rounded-xl border border-black/10 p-4 flex items-center gap-3">
+                {BRANDS.map((b) => (
+                  <button
+                    key={b.key}
+                    className={`rounded-xl border p-4 flex items-center gap-3 text-left ${
+                      selected.key === b.key ? "border-green-600 bg-green-50" : "border-black/10 hover:bg-black/5"
+                    }`}
+                    onClick={() => setSelected(b)}
+                  >
                     <div className={`h-10 w-10 rounded-full grid place-items-center ${b.color}`}> </div>
                     <div className="font-medium">{b.name}</div>
-                  </div>
+                  </button>
                 ))}
               </div>
               <button className="h-8 w-8 rounded-full border border-black/10 grid place-items-center">›</button>
@@ -58,30 +78,39 @@ export default function HowItWorks() {
             <div className="mt-6">
               <div className="text-sm font-medium mb-2">Transaction Value</div>
               <div className="grid grid-cols-3 gap-3">
-                {[
-                  { label: "₹ 500" },
-                  { label: "₹ 1000", active: true },
-                  { label: "₹ 2500" },
-                ].map((x) => (
+                {presetValues.map((v) => (
                   <button
-                    key={x.label}
+                    key={v}
+                    onClick={() => setAmount(v)}
                     className={`h-12 rounded-xl border text-sm font-medium ${
-                      x.active ? "border-green-600 bg-green-50" : "border-black/15 hover:bg-black/5"
+                      amount === v ? "border-green-600 bg-green-50" : "border-black/15 hover:bg-black/5"
                     }`}
                   >
-                    {x.label}
+                    ₹ {v}
                   </button>
                 ))}
+              </div>
+              <div className="mt-3">
+                <input
+                  type="number"
+                  className="w-full h-12 rounded-xl border border-black/15 px-4 outline-none focus:border-green-600"
+                  value={amount}
+                  onChange={(e) => setAmount(Number(e.target.value || 0))}
+                  min={0}
+                />
               </div>
             </div>
 
             <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-200 p-8 text-center">
-              <div className="text-4xl font-bold">150 <span className="text-amber-500 text-lg align-top">₹</span></div>
+              <div className="text-4xl font-bold">{coins} <span className="text-amber-500 text-lg align-top">₹</span></div>
               <div className="text-black/70 mt-1">Corra Coins Earned</div>
             </div>
 
             <div className="mt-6">
-              <button className="w-full h-12 rounded-xl bg-green-700 text-white font-medium hover:bg-green-800">
+              <button
+                onClick={() => router.push(`/upload?brand=${selected.key}&amount=${amount}`)}
+                className="w-full h-12 rounded-xl bg-green-700 text-white font-medium hover:bg-green-800"
+              >
                 Earn Coins Now →
               </button>
             </div>
