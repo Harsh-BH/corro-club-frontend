@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "@/components/Header";
+import BackButton from "@/components/BackButton";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 
@@ -17,20 +18,22 @@ function VerifyContent() {
   const params = useSearchParams();
   const brand = params.get("brand") || "brand";
   const amount = params.get("amount") || "";
+  const redirect = params.get("redirect") || "";
   const [phone, setPhone] = useState("");
 
   function handleContinue() {
-    router.push(`/verify/otp?brand=${encodeURIComponent(brand)}&amount=${encodeURIComponent(amount)}&phone=${encodeURIComponent(phone)}`);
+    router.push(`/verify/otp?brand=${encodeURIComponent(brand)}&amount=${encodeURIComponent(amount)}&phone=${encodeURIComponent(phone)}&redirect=${encodeURIComponent(redirect)}`);
   }
 
   return (
     <div className="font-sans bg-white min-h-screen">
       <Header />
       <main className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 animate-fade-up">
+        <BackButton />
         <h1 className="text-center text-3xl sm:text-4xl font-bold">Enter Contact Details</h1>
         <p className="text-center text-black/70 mt-2">Verify your mobile number to continue</p>
 
-        <section className="mt-10 rounded-2xl border border-black/10 shadow-sm bg-white p-8 text-center animate-fade-up delay-100">
+        <section className="mt-10 rounded-2xl border border-black/10 shadow-soft bg-white p-8 text-center animate-fade-up delay-100">
           <div className="mx-auto h-14 w-14 rounded-full bg-green-700 text-white grid place-items-center text-2xl">📞</div>
           <h2 className="mt-4 text-2xl font-semibold">Enter Your Mobile Number</h2>
           <p className="mt-1 text-black/70">We&apos;ll send you a verification code to confirm your identity</p>

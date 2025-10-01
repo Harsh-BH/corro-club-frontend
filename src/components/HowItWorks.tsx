@@ -63,7 +63,7 @@ export default function HowItWorks() {
             <div className="flex items-center gap-3">
               <button className="h-8 w-8 rounded-full border border-black/10 grid place-items-center">‹</button>
               <div className="flex-1 grid grid-cols-3 gap-4">
-                {BRANDS.map((b, idx) => (
+                {BRANDS.map((b) => (
                   <button
                     key={b.key}
                     className={`rounded-xl border p-4 flex items-center gap-3 text-left ${
@@ -123,6 +123,23 @@ export default function HowItWorks() {
                 className="w-full h-12 rounded-xl bg-green-700 text-white font-medium hover:bg-green-800"
               >
                 Earn Coins Now →
+              </button>
+              <button
+                onClick={() => {
+                  try {
+                    const isAuthed = typeof window !== "undefined" && !!localStorage.getItem("auth");
+                    if (isAuthed) {
+                      router.push("/dashboard");
+                    } else {
+                      router.push("/verify?redirect=dashboard");
+                    }
+                  } catch {
+                    router.push("/verify?redirect=dashboard");
+                  }
+                }}
+                className="mt-3 w-full h-12 rounded-xl border border-black/15 text-green-700 font-medium hover:bg-green-50"
+              >
+                Already Earned? Convert To Cash →
               </button>
             </div>
           </div>

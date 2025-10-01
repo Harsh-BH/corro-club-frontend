@@ -1,3 +1,7 @@
+
+
+import Image from "next/image";
+
 type Brand = { key: string; name: string; short: string; color: string };
 
 const brands: Brand[] = [
@@ -14,23 +18,48 @@ const brands: Brand[] = [
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-12 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        <div className="animate-fade-up">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
-            One Club. <span className="text-green-700">Many</span> <span className="text-green-700">Brands.</span> Infinite Rewards.
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-12 grid grid-cols-1 gap-14 items-center justify-items-center">
+        <div className="animate-fade-up text-center">
+          <div className="flex justify-center">
+            <Image
+              src="/corro_logo.png"
+              alt="Corra Club"
+              width={72}
+              height={72}
+              className="mx-auto mb-6 rounded-full"
+            />
+          </div>
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight">
+            One Club.
+            <span className="text-green-700"> Many Brands.</span>
+            <br className="hidden sm:block" />
+            Infinite Rewards.
           </h1>
-          <div className="mt-10 flex items-center gap-10">
-            <div>
-              <div className="text-3xl font-bold">30+</div>
-              <div className="text-sm text-black/60">30+ Brands<br/>Tie-ups</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold">∞ XX</div>
-              <div className="text-sm text-black/60">Earn coins from<br/>all brands</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold flex items-baseline gap-1"><span className="text-green-700">₹</span> 1 INR</div>
-              <div className="text-sm text-black/60">Convert to Cash<br/>or next purchase</div>
+          <p className="mt-3 text-lg sm:text-xl text-black/60 max-w-3xl mx-auto">
+            <span className="text-green-700 font-semibold">Corra Club</span> - A multi-brand loyalty program with all your beloved brands. Get cashback on all transactions
+          </p>
+
+          <div className="mt-8">
+            <form className="w-full max-w-xl md:max-w-2xl mx-auto">
+              <div className="flex items-stretch rounded-full shadow-md overflow-hidden border border-black/10 bg-white">
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email address"
+                  className="flex-1 px-5 py-4 outline-none text-base placeholder-black/40 focus:text-black focus:placeholder-black/30"
+                />
+                <button
+                  type="submit"
+                  className="bg-green-700 text-white px-6 sm:px-8 py-4 font-semibold hover:bg-green-800 transition-colors"
+                >
+                  Get Early Access
+                </button>
+              </div>
+            </form>
+            <div className="mt-4">
+              <a href="#earn" className="group inline-flex items-center gap-2 text-black/70 hover:text-green-700 transition-colors underline decoration-black/20 underline-offset-4">
+                Earn Rewards Now <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+              </a>
             </div>
           </div>
         </div>
@@ -59,7 +88,7 @@ export default function Hero() {
                     >
                       <div className={`relative ${b.color} h-12 w-12 rounded-full grid place-items-center text-sm font-semibold brand-orbit`}>{b.short}</div>
                       <div
-                        className={`pointer-events-none absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-white text-black border border-black/10 shadow px-3 py-1 text-xs opacity-0 scale-95 transition duration-200 group-hover:opacity-100 group-hover:scale-100 ${
+                        className={`pointer-events-none absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-white text-black border border-black/10 shadow px-3 py-1 text-xs transition duration-200 ${
                           isLeft ? "right-[56px] origin-right" : "left-[56px] origin-left"
                         }`}
                       >
@@ -70,6 +99,15 @@ export default function Hero() {
                 })}
               </div>
             </div>
+          </div>
+
+          {/* Side callouts */}
+          <div className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 md:-translate-x-96 lg:-translate-x-[28rem] xl:-translate-x-[32rem] hidden md:block w-28">
+            <div className="text-3xl font-bold leading-none">30+</div>
+            <div className="text-sm text-black/60 leading-snug">Selected<br/>Brands</div>
+          </div>
+          <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 md:translate-x-96 lg:translate-x-[28rem] xl:translate-x-[32rem] text-right hidden md:block w-40">
+            <div className="text-base md:text-lg text-black leading-snug">Get cash back<br/><span className="text-green-700 font-semibold">on each</span><br/><span className="text-green-700 font-semibold">purchase</span></div>
           </div>
         </div>
       </div>

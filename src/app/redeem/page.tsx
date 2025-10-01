@@ -1,43 +1,38 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import Header from "@/components/Header";
 import BackButton from "@/components/BackButton";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
 type Brand = { key: string; name: string; color: string };
-
 const BRANDS: Brand[] = [
   { key: "adidas", name: "Adidas", color: "bg-black text-white" },
   { key: "decathlon", name: "Decathlon", color: "bg-blue-600 text-white" },
   { key: "firstcry", name: "Firstcry", color: "bg-pink-500 text-white" },
-  { key: "urbanic", name: "Urbanic", color: "bg-purple-600 text-white" },
 ];
 
-export default function UploadPage() {
+export default function RedeemPage() {
   return (
     <Suspense fallback={<div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">Loading…</div>}>
-      <UploadContent />
+      <RedeemContent />
     </Suspense>
   );
 }
 
-function UploadContent() {
+function RedeemContent() {
+  const router = useRouter();
   const params = useSearchParams();
   const [selected, setSelected] = useState<Brand>(BRANDS[0]);
-  const [amount, setAmount] = useState<string>("500");
+  const [amount, setAmount] = useState<string>(String(Number(params.get("amount") || 100)));
+  const [upiId, setUpiId] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [dragging, setDragging] = useState<boolean>(false);
 
   useEffect(() => {
-    const brandKey = params.get("brand");
-    const amt = params.get("amount");
-    if (brandKey) {
-      const found = BRANDS.find((b) => b.key === brandKey);
-      if (found) setSelected(found);
-    }
-    if (amt && !Number.isNaN(Number(amt))) setAmount(String(amt));
+    const a = params.get("amount");
+    if (a && !Number.isNaN(Number(a))) setAmount(String(a));
   }, [params]);
 
   function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -49,32 +44,35 @@ function UploadContent() {
     }
   }
 
-  const canContinue = Boolean(fileName);
+  const canContinue = Boolean(fileName && upiId && Number(amount) > 0);
 
   return (
     <div className="font-sans bg-white min-h-screen">
+      <Header />
       <main className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10 animate-fade-up">
         <BackButton />
-        <h1 className="text-center text-3xl sm:text-4xl font-bold">Earn Corra Coins for {selected.name}</h1>
-        <p className="text-center text-black/70 mt-2">Upload your {selected.name} purchase receipt</p>
+        <h1 className="text-center text-3xl sm:text-4xl font-bold">Claim Cashback</h1>
+        <p className="text-center text-black/70 mt-2">Redeem ₹{amount} from your Corra Coins</p>
 
-        {/* Stepper simplified */}
+        {/* Stepper */}
         <div className="mt-6 flex items-center justify-center gap-12 text-sm">
-          {["Upload Receipt", "Verify Details", "Get Coins"].map((s, i) => (
-            <div key={s} className="flex items-center gap-3">
-              <div className={`h-9 w-9 rounded-full grid place-items-center text-white ${i === 0 ? "bg-green-700" : "bg-black/30"}`}>{i + 1}</div>
-              <span className="text-black/70">{s}</span>
+          {[
+            { label: "Upload Receipt", active: true },
+            { label: "Verify Details", active: false },
+            { label: "Submit", active: false },
+          ].map((s, i) => (
+            <div key={s.label} className="flex items-center gap-3">
+              <div className={`h-9 w-9 rounded-full grid place-items-center text-white ${s.active ? "bg-green-700" : "bg-black/30"}`}>{i + 1}</div>
+              <span className="text-black/70">{s.label}</span>
             </div>
           ))}
         </div>
 
-        {/* Card */}
         <section className="mt-10 rounded-2xl border border-black/10 shadow-soft bg-white animate-fade-up delay-100">
           <div className="px-6 py-6 border-b border-black/10">
             <h2 className="text-xl sm:text-2xl font-semibold">Upload Receipt for {selected.name}</h2>
-            <p className="text-black/70 mt-2">Upload a clear photo of your purchase receipt to earn Corra Coins</p>
+            <p className="text-black/70 mt-2">Upload a clear photo of your purchase receipt to claim cashback</p>
           </div>
-
           <div className="p-6">
             {/* Brand selector */}
             <div className="mb-6">
@@ -82,7 +80,7 @@ function UploadContent() {
               <div className="flex items-center gap-3">
                 <button className="h-9 w-9 rounded-full border border-black/15 grid place-items-center">‹</button>
                 <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {BRANDS.slice(0, 3).map((b) => (
+                  {BRANDS.map((b) => (
                     <button
                       key={b.key}
                       onClick={() => setSelected(b)}
@@ -100,11 +98,11 @@ function UploadContent() {
               <div className="mt-2 text-sm text-black/60">View all brands ▾</div>
             </div>
 
-            {/* Requirements */}
-            <div className="rounded-xl border border-blue-200 bg-blue-50 text-blue-700 p-4 text-sm animate-fade-up">
+            {/* Upload Requirements */}
+            <div className="rounded-xl border border-blue-200 bg-blue-50 text-blue-700 p-4 text-sm">
               <ul className="list-disc pl-5 space-y-1">
                 <li>Make sure the receipt photo is clear</li>
-                <li>Total transaction value & Unique Order Id must be present on the receipt</li>
+                <li>PNG or JPG up to 10MB</li>
               </ul>
             </div>
 
@@ -157,6 +155,17 @@ function UploadContent() {
               </div>
             </div>
 
+            {/* UPI ID */}
+            <div className="mt-4">
+              <label className="text-sm font-medium">UPI ID</label>
+              <input
+                className="mt-1 w-full h-12 rounded-xl border border-black/15 px-4 outline-none focus:border-green-600 transition"
+                placeholder="Enter your UPI ID (e.g., name@paytm)"
+                value={upiId}
+                onChange={(e) => setUpiId(e.target.value)}
+              />
+            </div>
+
             {/* Notes */}
             <div className="mt-4 space-y-2 text-sm">
               <div className="rounded-lg bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3">
@@ -176,8 +185,7 @@ function UploadContent() {
               <button
                 onClick={() => {
                   if (!canContinue) return;
-                  const url = `/verify?brand=${encodeURIComponent(selected.key)}&amount=${encodeURIComponent(amount)}`;
-                  window.location.href = url;
+                  router.push(`/redeem/success?amount=${encodeURIComponent(amount)}`);
                 }}
                 className={`flex-1 h-12 rounded-xl text-white font-medium transition ${
                   canContinue ? "bg-green-700 hover:bg-green-800 active:scale-95" : "bg-black/20 cursor-not-allowed"
