@@ -1,30 +1,28 @@
-
-
 import Image from "next/image";
 
 type Brand = { key: string; name: string; short: string; color: string };
 
 const brands: Brand[] = [
-  { key: "adi", name: "Adidas", short: "Adi", color: "bg-black text-white" },
-  { key: "dec", name: "Decathlon", short: "Dec", color: "bg-blue-600 text-white" },
-  { key: "fir", name: "Firstcry", short: "Fir", color: "bg-pink-500 text-white" },
-  { key: "urb", name: "Urbanic", short: "Urb", color: "bg-purple-600 text-white" },
-  { key: "myn", name: "Myntra", short: "Myn", color: "bg-amber-400 text-black" },
-  { key: "nyk", name: "Nykaa", short: "Nyk", color: "bg-rose-500 text-white" },
-  { key: "pha", name: "Pharmacy", short: "Pha", color: "bg-green-500 text-white" },
-  { key: "wak", name: "Wakefit", short: "Wak", color: "bg-indigo-500 text-white" },
+  { key: "adidas", name: "Adidas", short: "A", color: "bg-black text-white" },
+  { key: "decathlon", name: "Decathlon", short: "D", color: "bg-blue-600 text-white" },
+  { key: "firstcry", name: "Firstcry", short: "F", color: "bg-pink-500 text-white" },
+  { key: "urbanic", name: "Urbanic", short: "U", color: "bg-purple-600 text-white" },
+  { key: "swiggy", name: "Swiggy", short: "S", color: "bg-orange-500 text-white" },
+  { key: "zomato", name: "Zomato", short: "Z", color: "bg-red-500 text-white" },
+  { key: "amazon", name: "Amazon", short: "A", color: "bg-yellow-500 text-black" },
+  { key: "flipkart", name: "Flipkart", short: "F", color: "bg-blue-500 text-white" },
 ];
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-blue-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-12 grid grid-cols-1 gap-14 items-center justify-items-center">
-        <div className="animate-fade-up text-center">
+        <div className="animate-fade-up text-center relative">
           <div className="flex justify-center">
             <Image
               src="/corro_logo.png"
               alt="Corra Club"
-              width={72}
+              width={100}
               height={72}
               className="mx-auto mb-6 rounded-full"
             />
@@ -35,6 +33,69 @@ export default function Hero() {
             <br className="hidden sm:block" />
             Infinite Rewards.
           </h1>
+          {/* Decorative SVGs around headline */}
+          <svg
+            viewBox="0 0 24 24"
+            className="hidden sm:block pointer-events-none absolute -left-6 top-8 h-5 w-5 text-green-600/70 animate-pulse"
+            aria-hidden
+          >
+            <path d="M12 2l2.5 6 6.5 2.5-6.5 2.5L12 21l-2.5-8L3 10.5 9.5 8 12 2z" fill="currentColor"/>
+          </svg>
+          <svg
+            viewBox="0 0 28 28"
+            className="hidden sm:block pointer-events-none absolute -right-8 top-6 h-6 w-6 text-blue-500/60 motion-safe:animate-spin"
+            style={{ animationDuration: "12s" }}
+            aria-hidden
+          >
+            <circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="4 6"/>
+          </svg>
+          <svg
+            viewBox="0 0 24 24"
+            className="hidden sm:block pointer-events-none absolute -left-10 bottom-6 h-6 w-6 text-emerald-500/60 animate-bounce"
+            aria-hidden
+          >
+            <path d="M12 3v18M3 12h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          <svg
+            viewBox="0 0 24 24"
+            className="hidden sm:block pointer-events-none absolute right-4 bottom-12 h-7 w-7 text-purple-500/50 motion-safe:animate-spin"
+            style={{ animationDuration: "15s", animationDirection: "reverse" }}
+            aria-hidden
+          >
+            <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="none" stroke="currentColor" strokeWidth="2"/>
+          </svg>
+          <svg
+            viewBox="0 0 24 24"
+            className="hidden sm:block pointer-events-none absolute left-12 top-2 h-4 w-4 text-amber-500/60 animate-pulse"
+            style={{ animationDelay: "1s" }}
+            aria-hidden
+          >
+            <circle cx="12" cy="12" r="8" fill="currentColor"/>
+          </svg>
+          <svg
+            viewBox="0 0 32 32"
+            className="hidden sm:block pointer-events-none absolute -right-4 bottom-4 h-8 w-8 text-teal-400/50 animate-bounce"
+            style={{ animationDelay: "0.5s", animationDuration: "2s" }}
+            aria-hidden
+          >
+            <path d="M16 4L18 12L26 14L18 16L16 24L14 16L6 14L14 12Z" fill="none" stroke="currentColor" strokeWidth="2"/>
+          </svg>
+          <svg
+            viewBox="0 0 24 24"
+            className="hidden lg:block pointer-events-none absolute left-24 bottom-20 h-5 w-5 text-rose-400/60 motion-safe:animate-spin"
+            style={{ animationDuration: "20s" }}
+            aria-hidden
+          >
+            <polygon points="12,2 15,10 23,10 17,15 19,23 12,18 5,23 7,15 1,10 9,10" fill="currentColor"/>
+          </svg>
+          <svg
+            viewBox="0 0 24 24"
+            className="hidden lg:block pointer-events-none absolute right-16 top-16 h-6 w-6 text-indigo-400/50 animate-pulse"
+            style={{ animationDelay: "2s" }}
+            aria-hidden
+          >
+            <rect x="6" y="6" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" rx="2"/>
+          </svg>
           <p className="mt-3 text-lg sm:text-xl text-black/60 max-w-3xl mx-auto">
             <span className="text-green-700 font-semibold">Corra Club</span> - A multi-brand loyalty program with all your beloved brands. Get cashback on all transactions
           </p>
@@ -64,55 +125,110 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative h-[420px] md:h-[520px] animate-fade-up delay-100">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative h-[360px] w-[360px]">
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[300px] w-[300px] rounded-full border border-black/10" />
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[240px] w-[240px] rounded-full border border-black/10" />
+        <div className="relative w-full max-w-2xl mx-auto">
+          <div className="relative h-96 w-full">
+            {/* Decorative background glows */}
+            <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-green-200/40 blur-3xl" aria-hidden></div>
+            <div className="pointer-events-none absolute -bottom-10 -right-12 h-48 w-48 rounded-full bg-blue-200/40 blur-3xl" aria-hidden></div>
+            {/* Orbit container */}
+            <div className="absolute inset-0">
+              <div className="orbit-container h-full w-full relative">
+                {/* Animated orbit rings */}
+                <svg
+                  viewBox="0 0 320 320"
+                  className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60 motion-safe:animate-spin"
+                  style={{ animationDuration: "18s" }}
+                  aria-hidden
+                >
+                  <circle cx="160" cy="160" r="120" fill="none" stroke="#22c55e22" strokeWidth="2" strokeDasharray="6 10" />
+                </svg>
+                <svg
+                  viewBox="0 0 360 360"
+                  className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-40 motion-safe:animate-spin"
+                  style={{ animationDuration: "28s" }}
+                  aria-hidden
+                >
+                  <circle cx="180" cy="180" r="150" fill="none" stroke="#93c5fd33" strokeWidth="2" strokeDasharray="4 14" />
+                </svg>
+                {/* Center logo with ripple */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div className="center-pulse h-24 w-24 rounded-full bg-white grid place-items-center shadow-lg overflow-hidden">
+                    <Image
+                      src="/corro_logo.png"
+                      alt="Corra Club"
+                      width={100}
+                      height={100}
+                      className="rounded-full object-cover"
+                    />
+                  </div>
+                </div>
 
-              {/* Center logo with ripple */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className="center-pulse h-24 w-24 rounded-full bg-green-700 text-white grid place-items-center text-2xl font-bold shadow-lg">C</div>
-              </div>
-
-              {/* Orbiting brands arranged evenly around the 300px ring (radius 150px) */}
-              <div className="absolute inset-0 animate-rotate-slow">
-                {brands.map((b, index) => {
-                  const angle = (360 / brands.length) * index;
-                  const isLeft = angle > 90 && angle < 270;
-                  return (
-                    <div
-                      key={b.key}
-                      className="group absolute left-[55%] top-[55%] -translate-x-1/2 -translate-y-1/2"
-                      style={{ transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-150px) rotate(${-angle}deg)` }}
-                    >
-                      <div className={`relative ${b.color} h-12 w-12 rounded-full grid place-items-center text-sm font-semibold brand-orbit`}>{b.short}</div>
+                {/* Brand orbit */}
+                <div className="absolute inset-0">
+                  {brands.map((b, index) => {
+                    const angle = (360 / brands.length) * index;
+                    const isLeft = angle > 90 && angle < 270;
+                    return (
                       <div
-                        className={`pointer-events-none absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-white text-black border border-black/10 shadow px-3 py-1 text-xs transition duration-200 ${
-                          isLeft ? "right-[56px] origin-right" : "left-[56px] origin-left"
-                        }`}
+                        key={b.key}
+                        className="group absolute left-[52%] top-[55%] -translate-x-1/2 -translate-y-1/2"
+                        style={{ transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-150px) rotate(${-angle}deg)` }}
                       >
-                        {b.name}
+                        <div className={`relative ${b.color} h-12 w-12 rounded-full grid place-items-center text-sm font-semibold brand-orbit transition-transform duration-300 group-hover:scale-110`}>{b.short}</div>
+                        <div
+                          className={`pointer-events-none absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-white text-black border border-black/10 shadow px-3 py-1 text-xs transition duration-200 ${
+                            isLeft ? "right-[56px] origin-right" : "left-[56px] origin-left"
+                          }`}
+                        >
+                          {b.name}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Side callouts */}
-          <div className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 md:-translate-x-96 lg:-translate-x-[28rem] xl:-translate-x-[32rem] hidden md:block w-28">
-            <div className="text-3xl font-bold leading-none">30+</div>
-            <div className="text-sm text-black/60 leading-snug">Selected<br/>Brands</div>
-          </div>
-          <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 md:translate-x-96 lg:translate-x-[28rem] xl:translate-x-[32rem] text-right hidden md:block w-40">
-            <div className="text-base md:text-lg text-black leading-snug">Get cash back<br/><span className="text-green-700 font-semibold">on each</span><br/><span className="text-green-700 font-semibold">purchase</span></div>
+            {/* Side callouts */}
+            <div className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 md:-translate-x-32 lg:-translate-x-40 xl:-translate-x-48 hidden md:block">
+              <div className="relative rounded-2xl border-2 border-green-200 bg-white/80 backdrop-blur-sm shadow-lg px-6 py-4 w-32">
+                {/* Decorative corner sparkle */}
+                <svg
+                  viewBox="0 0 24 24"
+                  className="absolute -top-2 -right-2 h-5 w-5 text-green-500 animate-pulse"
+                  aria-hidden
+                >
+                  <path d="M12 2l2.5 6 6.5 2.5-6.5 2.5L12 21l-2.5-8L3 10.5 9.5 8 12 2z" fill="currentColor"/>
+                </svg>
+                <div className="text-3xl font-bold leading-none text-green-700">30+</div>
+                <div className="text-xs text-black/70 leading-snug mt-1">Selected<br/>Brands</div>
+              </div>
+            </div>
+            <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 md:translate-x-32 lg:translate-x-40 xl:translate-x-48 text-right hidden md:block">
+              <div className="relative rounded-2xl border-2 border-blue-200 bg-white/80 backdrop-blur-sm shadow-lg px-6 py-4 w-44">
+                {/* Decorative spinning ring */}
+                <svg
+                  viewBox="0 0 28 28"
+                  className="absolute -top-2 -left-2 h-6 w-6 text-blue-500/70 motion-safe:animate-spin"
+                  style={{ animationDuration: "10s" }}
+                  aria-hidden
+                >
+                  <circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="4 6"/>
+                </svg>
+                {/* Cash icon */}
+                <svg
+                  viewBox="0 0 24 24"
+                  className="absolute -bottom-2 -right-2 h-6 w-6 text-green-600 animate-bounce"
+                  aria-hidden
+                >
+                  <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z"/>
+                </svg>
+                <div className="text-sm leading-snug text-black/80">Get cash back<br/><span className="text-green-700 font-semibold">on each</span><br/><span className="text-green-700 font-semibold">purchase</span></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 }
-
-
