@@ -2,7 +2,6 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import Header from "@/components/Header";
 import BackButton from "@/components/BackButton";
 
 type Brand = { key: string; name: string; color: string };

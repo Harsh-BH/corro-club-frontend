@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "@/components/Header";
 import BackButton from "@/components/BackButton";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
@@ -28,7 +27,6 @@ function OtpContent() {
 
   return (
     <div className="font-sans bg-white min-h-screen">
-      <Header />
       <main className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 animate-fade-up">
         <BackButton />
         <h1 className="text-center text-3xl sm:text-4xl font-bold">Enter Contact Details</h1>

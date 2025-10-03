@@ -29,10 +29,36 @@ export default function HowItWorks() {
     setCoinAnimKey((k) => k + 1);
   }
   return (
-    <section id="about" className="py-16">
+    <section id="about" className="relative overflow-hidden py-16">
+      {/* Background glows */}
+      <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-green-200/40 blur-3xl" aria-hidden></div>
+      <div className="pointer-events-none absolute -bottom-10 -right-12 h-48 w-48 rounded-full bg-blue-200/40 blur-3xl" aria-hidden></div>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        <div className="animate-fade-up">
+        <div className="animate-fade-up relative">
           <h2 className="text-3xl sm:text-4xl font-bold mb-8">How to Earn Corra Coins?</h2>
+          {/* Decorative accents around heading */}
+          <svg
+            viewBox="0 0 24 24"
+            className="hidden sm:block pointer-events-none absolute -left-4 -top-2 h-5 w-5 text-green-600/70 animate-pulse"
+            aria-hidden
+          >
+            <path d="M12 2l2.5 6 6.5 2.5-6.5 2.5L12 21l-2.5-8L3 10.5 9.5 8 12 2z" fill="currentColor"/>
+          </svg>
+          <svg
+            viewBox="0 0 28 28"
+            className="hidden sm:block pointer-events-none absolute -right-5 -top-3 h-6 w-6 text-blue-500/60 motion-safe:animate-spin"
+            style={{ animationDuration: "14s" }}
+            aria-hidden
+          >
+            <circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="4 6"/>
+          </svg>
+          <svg
+            viewBox="0 0 24 24"
+            className="hidden sm:block pointer-events-none absolute -left-6 bottom-0 h-6 w-6 text-emerald-500/60 animate-bounce"
+            aria-hidden
+          >
+            <path d="M12 3v18M3 12h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
           <ol className="space-y-8">
             <li className="flex items-start gap-4">
               <div className="h-10 w-10 rounded-full bg-green-700 text-white grid place-items-center font-semibold">1</div>
@@ -59,7 +85,23 @@ export default function HowItWorks() {
           </ol>
         </div>
         <div id="brands" className="w-full">
-          <div className="rounded-2xl border border-black/10 bg-white shadow-sm p-6 animate-fade-up delay-100">
+          <div className="relative rounded-2xl border border-black/10 bg-white shadow-sm p-6 animate-fade-up delay-100">
+            {/* Card accents */}
+            <svg
+              viewBox="0 0 28 28"
+              className="pointer-events-none absolute -top-3 -left-3 h-7 w-7 text-blue-400/60 motion-safe:animate-spin"
+              style={{ animationDuration: "16s" }}
+              aria-hidden
+            >
+              <circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="4 6"/>
+            </svg>
+            <svg
+              viewBox="0 0 24 24"
+              className="pointer-events-none absolute -bottom-3 -right-3 h-6 w-6 text-green-500/70 animate-pulse"
+              aria-hidden
+            >
+              <path d="M12 2l2.5 6 6.5 2.5-6.5 2.5L12 21l-2.5-8L3 10.5 9.5 8 12 2z" fill="currentColor"/>
+            </svg>
             <div className="flex items-center gap-3">
               <button className="h-8 w-8 rounded-full border border-black/10 grid place-items-center">‹</button>
               <div className="flex-1 grid grid-cols-3 gap-4">
@@ -112,8 +154,17 @@ export default function HowItWorks() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-2xl bg-amber-50 border border-amber-200 p-8 text-center">
-              <div key={coinAnimKey} className="text-4xl font-bold inline-block animate-coin-pop">{coins} <span className="text-amber-500 text-lg align-top">₹</span></div>
+            <div className="mt-6 relative rounded-2xl bg-amber-50 border border-amber-200 p-8 text-center overflow-hidden">
+              {/* Spinning dashed ring behind coins */}
+
+              {/* Sparkles */}
+              <svg viewBox="0 0 24 24" className="pointer-events-none absolute -top-2 left-4 h-5 w-5 text-amber-500/70 animate-pulse" aria-hidden>
+                <path d="M12 2l2.5 6 6.5 2.5-6.5 2.5L12 21l-2.5-8L3 10.5 9.5 8 12 2z" fill="currentColor"/>
+              </svg>
+              <svg viewBox="0 0 24 24" className="pointer-events-none absolute -bottom-2 right-4 h-5 w-5 text-amber-500/70 animate-bounce" aria-hidden>
+                <path d="M12 3v18M3 12h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              <div key={coinAnimKey} className="relative text-4xl font-bold inline-block animate-coin-pop">{coins} <span className="text-amber-500 text-lg align-top">₹</span></div>
               <div className="text-black/70 mt-1">Corra Coins Earned</div>
             </div>
 
