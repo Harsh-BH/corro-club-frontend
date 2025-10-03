@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "@/components/Header";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -19,7 +18,6 @@ export default function DashboardPage() {
 
   return (
     <div className="font-sans bg-white min-h-screen">
-      <Header />
       <main className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 animate-fade-up">
         {/* Back */}
         <button onClick={() => router.back()} className="inline-flex items-center gap-2 text-sm text-black/70 hover:text-black rounded-lg border border-black/10 px-3 py-2 bg-white/70 backdrop-blur">

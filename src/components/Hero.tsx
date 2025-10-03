@@ -15,15 +15,15 @@ const brands: Brand[] = [
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-green-50 via-white to-blue-50">
+    <section className="relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-12 grid grid-cols-1 gap-14 items-center justify-items-center">
         <div className="animate-fade-up text-center relative">
           <div className="flex justify-center">
             <Image
               src="/corro_logo.png"
               alt="Corra Club"
-              width={100}
-              height={72}
+              width={150}
+              height={108}
               className="mx-auto mb-6 rounded-full"
             />
           </div>
@@ -118,7 +118,7 @@ export default function Hero() {
               </div>
             </form>
             <div className="mt-4">
-              <a href="#earn" className="group inline-flex items-center gap-2 text-black/70 hover:text-green-700 transition-colors underline decoration-black/20 underline-offset-4">
+              <a href="/dashboard" className="group inline-flex items-center gap-2 text-black/70 hover:text-green-700 transition-colors underline decoration-black/20 underline-offset-4">
                 Earn Rewards Now <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
               </a>
             </div>
@@ -152,12 +152,12 @@ export default function Hero() {
                 </svg>
                 {/* Center logo with ripple */}
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div className="center-pulse h-24 w-24 rounded-full bg-white grid place-items-center shadow-lg overflow-hidden">
+                  <div className="center-pulse h-32 w-32 rounded-full bg-white grid place-items-center shadow-lg overflow-hidden">
                     <Image
                       src="/corro_logo.png"
                       alt="Corra Club"
-                      width={100}
-                      height={100}
+                      width={128}
+                      height={128}
                       className="rounded-full object-cover"
                     />
                   </div>
