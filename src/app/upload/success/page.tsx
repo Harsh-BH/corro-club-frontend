@@ -2,8 +2,17 @@
 
 import BackButton from "@/components/BackButton";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 export default function UploadSuccessPage() {
+  return (
+    <Suspense fallback={<div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">Loading…</div>}>
+      <SuccessContent />
+    </Suspense>
+  );
+}
+
+function SuccessContent() {
   const router = useRouter();
   const params = useSearchParams();
   const brand = params.get("brand") || "";
