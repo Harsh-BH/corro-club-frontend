@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [redeemAmount, setRedeemAmount] = useState<number>(100);
+  const [redeemAmount] = useState<number>(100);
 
   useEffect(() => {
     try {
@@ -36,24 +36,7 @@ export default function DashboardPage() {
           <div className="mt-4 text-black/70">6969 Earned</div>
         </section>
 
-        <section className="mt-6 rounded-2xl border border-black/10 bg-white p-6">
-          <div className="flex items-center justify-between">
-            <h2 className="font-semibold">Get Cashback Now!</h2>
-            <div className="text-green-700 font-semibold">₹{redeemAmount}</div>
-          </div>
-          <div className="mt-4">
-            <input
-              type="range"
-              min={50}
-              max={500}
-              step={50}
-              value={redeemAmount}
-              onChange={(e) => setRedeemAmount(Number(e.target.value))}
-              className="w-full"
-            />
-            <div className="flex justify-between text-sm text-black/60"><span>₹50</span><span>₹500</span></div>
-          </div>
-        </section>
+
 
         <section className="mt-6 rounded-2xl border border-black/10 bg-white p-6">
           <h2 className="font-semibold">Transaction History</h2>
