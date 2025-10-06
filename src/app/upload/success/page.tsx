@@ -1,8 +1,7 @@
 "use client";
 
-import BackButton from "@/components/BackButton";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
 
 export default function UploadSuccessPage() {
   return (
@@ -13,45 +12,69 @@ export default function UploadSuccessPage() {
 }
 
 function SuccessContent() {
-  const router = useRouter();
   const params = useSearchParams();
-  const brand = params.get("brand") || "";
-  const amount = Number(params.get("amount") || 0);
-  const coins = Number.isFinite(amount) && amount > 0 ? Math.round(amount) : 0;
+  const router = useRouter();
+  const [brand, setBrand] = useState("");
+  const [amount, setAmount] = useState("");
+
+  useEffect(() => {
+    setBrand(params.get("brand") || "");
+    setAmount(params.get("amount") || "");
+  }, [params]);
 
   return (
-    <div className="font-sans bg-white min-h-screen">
-      <main className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 animate-fade-up text-center">
-        <BackButton className="mb-4" />
-        <section className="mt-6 rounded-2xl border border-black/10 shadow-soft bg-white p-10">
-          <div className="mx-auto h-16 w-16 rounded-full bg-green-100 text-green-700 grid place-items-center text-3xl">✓</div>
-          <h1 className="mt-4 text-2xl sm:text-3xl font-bold">Receipt Verified!</h1>
-          <p className="mt-2 text-black/70">
-            {brand ? `You earned ${coins} Corra Coins for your ${brand} purchase.` : `You earned ${coins} Corra Coins.`}
-          </p>
-
-          <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 p-4">
-            🎉 Coins have been credited to your wallet
-          </div>
-
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <button
-              onClick={() => router.push("/dashboard")}
-              className="h-12 rounded-xl bg-green-700 text-white font-medium hover:bg-green-800"
-            >
-              Back to Wallet
-            </button>
-            <button
-              onClick={() => router.push("/upload")}
-              className="h-12 rounded-xl border border-black/15"
-            >
-              Upload Another Receipt
-            </button>
-          </div>
-          <div className="mt-6 text-sm text-black/60">Track your earnings in the Transaction History</div>
-        </section>
-      </main>
-    </div>
+    <section className="animate-fade-up">
+      <div className="mx-auto max-w-xl rounded-[28px] bg-white border border-black/10 shadow-xl shadow-black/5 p-10 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_60%_30%,#16a34a0d,transparent_70%)]" />
+        <div className="w-20 h-20 rounded-full bg-green-600 text-white grid place-items-center mx-auto mb-8 relative">
+          <svg viewBox="0 0 24 24" className="h-10 w-10" aria-hidden>
+            <path
+              d="M9 12l2 2 4-4M21 11.5a8.5 8.5 0 11-17 0 8.5 8.5 0 0117 0z"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <h1 className="text-center text-2xl sm:text-3xl font-bold">Coins Credited!</h1>
+        <p className="text-center text-black/60 mt-3">
+          You earned Corra Coins for <span className="font-medium">{brand || "your purchase"}</span>.
+        </p>
+        <div className="mt-8 rounded-xl border border-green-200 bg-green-50 px-6 py-6 text-green-900 text-sm">
+          <p className="font-semibold text-green-800">Receipt Verified & Wallet Updated</p>
+          <ul className="mt-4 space-y-2">
+            <li className="flex items-start gap-2">
+              <span className="text-green-600">✓</span>
+              <span>Amount: ₹{amount || "—"}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-green-600">✓</span>
+              <span>Coins Added: ₹{amount || "—"}</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-green-600">✓</span>
+              <span>Track & redeem in your dashboard</span>
+            </li>
+          </ul>
+        </div>
+        <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <button
+            onClick={() => router.push("/dashboard")}
+            className="flex-1 h-12 rounded-xl bg-green-700 hover:bg-green-800 text-white font-semibold transition active:scale-[.98]"
+          >
+            Go To Dashboard
+          </button>
+          <button
+            onClick={() => router.push("/upload")}
+            className="flex-1 h-12 rounded-xl border border-green-400 bg-white hover:bg-green-100 text-green-700 font-semibold transition"
+          >
+            Upload Another
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
 

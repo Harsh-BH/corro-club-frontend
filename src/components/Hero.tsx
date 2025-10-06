@@ -1,34 +1,79 @@
+"use client"; // Added to allow onClick in this component
+
 import Image from "next/image";
+import { ALL_BRANDS } from "@/data/brands";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { motion } from "motion/react";
+import { toast } from "sonner";
 
-type Brand = { key: string; name: string; short: string; color: string };
+const orbitBrands = ALL_BRANDS.filter(b =>
+  ["adidas","nykaa","swiggy","dominos","decathlon","amazon","flipkart",'dominos'].includes(b.key)
+);
 
-const brands: Brand[] = [
-	{ key: "adidas", name: "Adidas", short: "A", color: "bg-black text-white" },
-	{
-		key: "decathlon",
-		name: "Decathlon",
-		short: "D",
-		color: "bg-blue-600 text-white",
-	},
-	{ key: "firstcry", name: "Firstcry", short: "F", color: "bg-pink-500 text-white" },
-	{ key: "urbanic", name: "Urbanic", short: "U", color: "bg-purple-600 text-white" },
-	{ key: "swiggy", name: "Swiggy", short: "S", color: "bg-orange-500 text-white" },
-	{ key: "zomato", name: "Zomato", short: "Z", color: "bg-red-500 text-white" },
-	{ key: "amazon", name: "Amazon", short: "A", color: "bg-yellow-500 text-black" },
-	{ key: "flipkart", name: "Flipkart", short: "F", color: "bg-blue-500 text-white" },
-];
+ interface HeroSectionProps {
+  onNavigate?: (page: string) => void;
+}
 
-export default function Hero() {
+
+export default function Hero({}:HeroSectionProps) {
+
+
+	  const [email, setEmail] = useState("");
+
+const handleGetEarlyAccess = () => {
+	if (email) {
+		toast("Welcome aboard, early member!🎉 Check your email for what's next!");
+		console.log("Get Early Access clicked with email:", email);
+		// Handle early access action with email
+	}
+};
+
+
+
+  const scrollToActionSection = () => {
+    document.querySelector('#action-section')?.scrollIntoView({ 
+      behavior: 'smooth' 
+    });
+  };
+
+
 	return (
-		<section className="relative overflow-hidden bg-gradient-to-br from-green-50 via-green-100 to-green-180">
-			{/* intensified central soft radial overlay */}
-			<div
-				aria-hidden
-				className="pointer-events-none absolute inset-0 -z-10 [mask-image:radial-gradient(circle_at_center,white,transparent_75%)]"
-			>
-				<div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[620px] w-[620px] rounded-full bg-emerald-100/60 blur-3xl" />
+		<section className="min-h-screen relative overflow-hidden">
+			{/* Enhanced gradient background with pattern */}
+			<div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-green-50/80 to-white"></div>
+			<div className="absolute inset-0 bg-gradient-to-tr from-green-100/30 via-transparent to-emerald-100/20"></div>
+			
+			{/* Subtle pattern overlay */}
+			<div className="absolute inset-0 opacity-30">
+				<div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_50%,rgba(34,197,94,0.05)_0%,transparent_50%)]"></div>
+				<div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(16,185,129,0.05)_0%,transparent_50%)]"></div>
+				<div className="absolute bottom-0 left-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_100%,rgba(5,150,105,0.03)_0%,transparent_50%)]"></div>
 			</div>
-			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-12 grid grid-cols-1 gap-14 items-center justify-items-center">
+
+			{/* Enhanced background decorations */}
+			<div className="absolute top-20 right-10 w-40 h-40 bg-gradient-to-r from-emerald-300/20 to-green-400/20 rounded-full blur-3xl"></div>
+			<div className="absolute bottom-20 left-10 w-56 h-56 bg-gradient-to-r from-green-300/15 to-emerald-400/15 rounded-full blur-3xl"></div>
+			<div className="absolute top-1/2 left-1/4 w-32 h-32 bg-gradient-to-r from-teal-300/10 to-emerald-300/10 rounded-full blur-2xl"></div>
+
+			{/* Top right login prompt */}
+			<div className="absolute top-4 right-4 z-20 flex items-center gap-3 text-sm">
+<span className="text-gray-600">Already a member?</span>
+				<button
+					onClick={() => {
+						window.location.href = "/login?redirect=dashboard";
+					}}
+					className="bg-white/90 backdrop-blur-sm border-2 border-green-600 hover:border-green-700 text-green-600 hover:text-green-700 hover:bg-green-50 px-6 py-2 font-semibold rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
+            >
+					Log-In
+				</button>
+			</div>
+
+			<div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+				<div className="flex flex-col items-center text-center space-y-12">
 				<div className="animate-fade-up text-center relative">
 					<div className="flex justify-center">
 						<Image
@@ -152,39 +197,58 @@ export default function Hero() {
 						all transactions
 					</p>
 
-					<div className="mt-8">
-						<form className="w-full max-w-xl md:max-w-2xl mx-auto">
-							<div className="flex items-stretch rounded-full shadow-md overflow-hidden border border-black/10 bg-white">
-								<input
-									type="email"
-									required
-									placeholder="Enter your email address"
-									className="flex-1 px-5 py-4 outline-none text-base placeholder-black/40 focus:text-black focus:placeholder-black/30"
-								/>
-								<button
-									type="submit"
-									className="bg-green-700 text-white px-6 sm:px-8 py-4 font-semibold hover:bg-green-800 transition-colors"
-								>
-									Get Early Access
-								</button>
-							</div>
-						</form>
-						<div className="mt-4">
-							<a
-								href="/dashboard"
-								className="group inline-flex items-center gap-2 text-black/70 hover:text-green-700 transition-colors underline decoration-black/20 underline-offset-4"
-							>
-								Earn Rewards Now{" "}
-								<span
-									aria-hidden
-									className="transition-transform group-hover:translate-x-0.5"
-								>
-									→
-								</span>
-							</a>
-						</div>
-					</div>
+
 				</div>
+
+		 <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="flex flex-col gap-6 items-center w-full max-w-lg"
+          >
+            {/* Primary CTA - Get Cashback Now with enhanced styling */}
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={scrollToActionSection}
+                    className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-4 h-14 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-3 group border-0"
+                  >
+                    <span className="text-xl group-hover:scale-110 transition-transform">₹</span>
+                    Get Cashback Now
+                    <motion.div
+                      animate={{ y: [0, 3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <ChevronDown className="w-5 h-5 group-hover:text-green-100 transition-colors" />
+                    </motion.div>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Start earning cashback from your favorite brands right away</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+
+            {/* Secondary CTA - Email Input + Button (Connected) */}
+            <div className="flex flex-col sm:flex-row w-full bg-white/90 backdrop-blur-sm rounded-lg border-2 border-gray-200 focus-within:border-green-500 transition-colors overflow-hidden">
+              <Input
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 h-14 text-lg px-6 border-0 focus:ring-0 bg-transparent"
+              />
+              <Button
+                onClick={handleGetEarlyAccess}
+                variant="outline"
+                className="border-2 border-green-600 hover:border-green-700 text-green-600 hover:text-green-700 hover:bg-green-50 px-8 py-4 h-14 text-lg font-semibold rounded-none sm:rounded-r-lg shadow-none hover:shadow-none transition-all duration-300 transform hover:scale-105 whitespace-nowrap bg-white/90"
+              >
+                Get Early Access
+              </Button>
+            </div>
+
+          </motion.div>
 
 				<div className="relative w-full max-w-2xl mx-auto">
 					<div className="relative h-96 w-full">
@@ -242,27 +306,33 @@ export default function Hero() {
 
 								{/* Brand orbit */}
 								<div className="absolute inset-0">
-									{brands.map((b, index) => {
-										const angle = (360 / brands.length) * index;
+									{orbitBrands.map((b, index) => {
+										const angle = (360 / orbitBrands.length) * index;
 										const isLeft = angle > 90 && angle < 270;
 										return (
 											<div
 												key={b.key}
-												className="group absolute left-[52%] top-[55%] -translate-x-1/2 -translate-y-1/2"
+												className="group absolute left-[53%] top-[58%] -translate-x-1/2 -translate-y-1/2"
 												style={{
 													transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-150px) rotate(${-angle}deg)`,
 												}}
 											>
 												<div
-													className={`relative ${b.color} h-12 w-12 rounded-full grid place-items-center text-sm font-semibold brand-orbit transition-transform duration-300 group-hover:scale-110`}
+													className={`relative h-12 w-12 rounded-full grid place-items-center overflow-hidden brand-orbit transition-transform duration-300 group-hover:scale-110 ring-1 ring-black/10 ${b.color}`}
 												>
-													{b.short}
+													<Image
+														src={b.icon}
+														alt={b.name}
+														width={40}
+														height={40}
+														className="h-8 w-8 object-contain"
+														unoptimized
+														draggable={false}
+													/>
 												</div>
 												<div
 													className={`pointer-events-none absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-white text-black border border-black/10 shadow px-3 py-1 text-xs transition duration-200 ${
-														isLeft
-															? "right-[56px] origin-right"
-															: "left-[56px] origin-left"
+														isLeft ? "right-[56px]" : "left-[56px]"
 													}`}
 												>
 													{b.name}
@@ -339,7 +409,9 @@ export default function Hero() {
 						</div>
 					</div>
 				</div>
+				</div>
 			</div>
 		</section>
 	);
 }
+
