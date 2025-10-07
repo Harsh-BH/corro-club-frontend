@@ -52,3 +52,14 @@ export const ALL_BRANDS: Brand[] = [
 // Derived list with earning rates for use in HowItWorks and other calculators
 export const EARNING_BRANDS: EarningBrand[] = ALL_BRANDS.map(b => ({ ...b, rate: 0.1 }));
 
+export const circleBrands: Brand[] = [
+  { key: "zepto", name: "Zepto", short: "Z", color: "bg-purple-100", icon: drive("1ANAZOUJbd9gneq5ibr66Db7uIzlufST9") },
+  { key: "swiggy", name: "Swiggy", short: "S", color: "bg-orange-100", icon: drive("1piLnN2LYMH6KCSSOqrJMjVqSczRTb5RX") },
+  { key: "myntra", name: "Myntra", short: "M", color: "bg-rose-100", icon: drive("1Qxjqu1NOqDYmY1whqAQK-ZC1OWAaRCYJ") },
+  { key: "rapido", name: "Rapido", short: "R", color: "bg-amber-100", icon: drive("1PPa_Cot4wD79lmjG8os5ZbDTcIgwR-ZO") },
+
+  { key: "nykaa", name: "Nykaa", short: "N", color: "bg-pink-100", icon: drive("1JA8hdUH7fAcZp1v1fCrE8DFOXJ5nK9AN") },
+  { key: "mcdonalds", name: "McDonalds", short: "Mc", color: "bg-yellow-200", icon: drive("1Ad4oNZN0NWqaBKtRMYKQbDsscxByoaJG") },
+  { key: "native", name: "Native by UC", short: "UC", color: "bg-teal-100", icon: drive("1SrEZRQt-oO4cJJtaS-YVt6zIroMU9KCF") },
+]
+

@@ -1,7 +1,7 @@
 "use client"; // Added to allow onClick in this component
 
 import Image from "next/image";
-import { ALL_BRANDS } from "@/data/brands";
+import { circleBrands } from "@/data/brands";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -10,9 +10,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { toast } from "sonner";
 
-const orbitBrands = ALL_BRANDS.filter(b =>
-  ["adidas","nykaa","swiggy","dominos","decathlon","amazon","flipkart",'dominos'].includes(b.key)
-);
+// Brands displayed in the orbit are sourced from circleBrands (data/brands)
 
  interface HeroSectionProps {
   onNavigate?: (page: string) => void;
@@ -307,43 +305,39 @@ const handleGetEarlyAccess = () => {
 									</div>
 								</div>
 
-								{/* Brand orbit */}
-								<div className="absolute inset-0">
-									{orbitBrands.map((b, index) => {
-										const angle = (360 / orbitBrands.length) * index;
-										const isLeft = angle > 90 && angle < 270;
-										return (
-											<div
-												key={b.key}
-												className="group absolute left-[53%] top-[58%] -translate-x-1/2 -translate-y-1/2"
-												style={{
-													transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-150px) rotate(${-angle}deg)`,
-												}}
-											>
-												<div
-													className={`relative h-12 w-12 rounded-full grid place-items-center overflow-hidden brand-orbit transition-transform duration-300 group-hover:scale-110 ring-1 ring-black/10 ${b.color}`}
-												>
-													<Image
-														src={b.icon}
-														alt={b.name}
-														width={40}
-														height={40}
-														className="h-8 w-8 object-contain"
-														unoptimized
-														draggable={false}
-													/>
-												</div>
-												<div
-													className={`pointer-events-none absolute top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-white text-black border border-black/10 shadow px-3 py-1 text-xs transition duration-200 ${
-														isLeft ? "right-[56px]" : "left-[56px]"
-													}`}
-												>
-													{b.name}
-												</div>
-											</div>
-										);
-									})}
-								</div>
+                                {/* Brand orbit */}
+                                <div className="absolute inset-0">
+                                    {circleBrands.map((b, index) => {
+                                        const count = circleBrands.length || 1;
+                                        const angle = (360 / count) * index;
+                                        const isLeft = angle > 90 && angle < 270;
+                                        return (
+                                            <div
+                                                key={b.key}
+                                                className="group absolute left-[53%] top-[58%] -translate-x-1/2 -translate-y-1/2"
+                                                style={{
+                                                    transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-150px) rotate(${-angle}deg)`,
+                                                }}
+                                            >
+                                                <div
+                                                    className={`relative h-12 w-12  grid place-items-center overflow-hidden brand-orbit transition-transform duration-300 group-hover:scale-110 ring-1 ring-black/10`}
+                                                >
+													{b.icon ? (
+														<Image
+															src={b.icon}
+															alt={b.name}
+															width={40}
+															height={40}
+														/>
+													) : (
+														<span className="text-xs font-semibold text-neutral-700">{b.short}</span>
+													)}
+                                                </div>
+                                                
+                                            </div>
+                                        );
+                                    })}
+                                </div>
 							</div>
 						</div>
 
