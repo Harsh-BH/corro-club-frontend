@@ -1,10 +1,11 @@
 "use client";
 
-import BackButton from "@/components/BackButton";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState, useMemo } from "react";
 import { ALL_BRANDS, type Brand } from "@/data/brands";
 import Image from "next/image";
+import { motion } from "motion/react";
+import { Info, Shield } from "lucide-react";
 
 export default function RedeemPage() {
   return (
@@ -39,6 +40,20 @@ function RedeemContent() {
     () => ALL_BRANDS.slice(overlayPage * OVERLAY_PER_PAGE, overlayPage * OVERLAY_PER_PAGE + OVERLAY_PER_PAGE),
     [overlayPage]
   );
+
+  function getRewardPercentage(brand: string) {
+    const rewardRates: { [key: string]: number } = {
+      'Adidas': 10,
+      'Decathlon': 8,
+      'Firstcry': 12,
+      'Urban Company': 15,
+      'Myntra': 7,
+      'Nykaa': 9,
+      'Pharmeasy': 11,
+      'Wakefit': 13
+    };
+    return rewardRates[brand] || 10;
+  }
 
   // Pagination helpers
   function prevPage() {
@@ -77,31 +92,22 @@ function RedeemContent() {
   const canContinue = Boolean(fileName && upiId && Number(amount) > 0);
 
   return (
-    <div className="font-sans bg-white min-h-screen">
-      <main className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10 animate-fade-up">
-        <BackButton />
-        <h1 className="text-center text-3xl sm:text-4xl font-bold">Claim Cashback</h1>
-        <p className="text-center text-black/70 mt-2">Redeem ₹{redeemAmount} from your Corra Coins</p>
-
-        {/* Stepper */}
-        <div className="mt-6 flex items-center justify-center gap-12 text-sm">
-          {[
-            { label: "Upload Receipt", active: true },
-            { label: "Verify Details", active: false },
-            { label: "Submit", active: false },
-          ].map((s, i) => (
-            <div key={s.label} className="flex items-center gap-3">
-              <div className={`h-9 w-9 rounded-full grid place-items-center text-white ${s.active ? "bg-green-700" : "bg-black/30"}`}>{i + 1}</div>
-              <span className="text-black/70">{s.label}</span>
-            </div>
-          ))}
-        </div>
+    <>
+      <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10 animate-fade-up">
+      <div className="text-center">
+            <h1 className="text-3xl font-bold text-gray-900 flex items-center justify-center gap-3">
+               Get Cashback on your 
+              <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 via-yellow-500 to-amber-600 rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-200 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent rounded-full"></div>
+                <span className="text-yellow-900 font-bold text-sm relative z-10 drop-shadow-sm">CC</span>
+              </div>
+            </h1>
+            <p className="text-gray-600 mt-1">Upload receipt of your recent purchase to get cashback in your bank account</p>
+          </div>
+          
 
         <section className="mt-10 rounded-2xl border border-black/10 shadow-soft bg-white animate-fade-up delay-100">
-          <div className="px-6 py-6 border-b border-black/10">
-            <h2 className="text-xl sm:text-2xl font-semibold">Upload Receipt for {selected.name}</h2>
-            <p className="text-black/70 mt-2">Upload a clear photo of your purchase receipt to claim cashback</p>
-          </div>
+
           <div className="p-6">
             {/* Brand selector */}
             <div className="mb-6">
@@ -292,39 +298,98 @@ function RedeemContent() {
               </div>
             </div>
 
-            <section className="mt-6 rounded-2xl border border-black/10 bg-white p-6">
-          <div className="flex items-center justify-between">
-            <h2 className="font-semibold">Get Cashback Now!</h2>
-            <div className="text-green-700 font-semibold text-xl">₹{redeemAmount}</div>
-          </div>
-          <div className="mt-4">
-            <input
-              type="range"
-              min={50}
-              max={500}
-              step={50}
-              value={redeemAmount}
-              onChange={(e) => {
-                const newAmount = Number(e.target.value);
-                setRedeemAmount(newAmount);
-                setAmount(String(newAmount));
-              }}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-            />
-            <div className="flex justify-between text-sm text-black/60 mt-2">
-              <span>₹50</span>
-              <span>₹500</span>
-            </div>
-          </div>
-        </section>
 
-            {/* Upload Requirements */}
-            <div className="rounded-xl border border-blue-200 bg-blue-50 text-blue-700 p-4 text-sm">
-              <ul className="list-disc pl-5 space-y-1">
-                <li>Make sure the receipt photo is clear</li>
-                <li>PNG or JPG up to 10MB</li>
-              </ul>
-            </div>
+                                      {/* Reward Percentage Card */}
+                                      <motion.div 
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 200, 
+                    damping: 15,
+                    delay: 0.3
+                  }}
+                  className="bg-gradient-to-r from-green-100 to-emerald-100 border-2 border-green-300 rounded-xl p-4 text-center shadow-lg relative overflow-hidden"
+                >
+                  {/* Celebratory sparkles */}
+                  <motion.div 
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      rotate: [0, 360, 0]
+                    }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute top-2 right-4 text-yellow-400 text-xl"
+                  >
+                    ✨
+                  </motion.div>
+                  
+                  <motion.div 
+                    animate={{ 
+                      scale: [1, 1.1, 1],
+                      rotate: [0, -360, 0]
+                    }}
+                    transition={{ 
+                      duration: 4, 
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 1.5
+                    }}
+                    className="absolute top-3 left-4 text-yellow-400 text-lg"
+                  >
+                    🎉
+                  </motion.div>
+                  
+                  <motion.div 
+                    animate={{ 
+                      scale: [1, 1.3, 1],
+                      rotate: [0, 180, 0]
+                    }}
+                    transition={{ 
+                      duration: 2.5, 
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.8
+                    }}
+                    className="absolute bottom-2 right-6 text-yellow-400 text-sm"
+                  >
+                    💰
+                  </motion.div>
+
+                  <motion.div 
+                    className="flex items-center justify-center space-x-2"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.5, duration: 0.6 }}
+                  >
+                  <motion.span 
+                      className="text-3xl font-bold text-green-700 bg-white/80 px-3 py-1 rounded-lg backdrop-blur-sm border border-green-200 shadow-sm"
+                      animate={{ 
+                        scale: [1, 1.05, 1] 
+                      }}
+                      transition={{ 
+                        duration: 2, 
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      {getRewardPercentage(selected.name)}%
+                    </motion.span>
+                    <span className="text-green-700 font-medium">
+                      worth rewards on purchase from {selected.name}
+                    </span>
+                  </motion.div>
+                </motion.div>
+
+
+
+
+
+
+
 
             {/* Dropzone */}
             <div className="mt-6">
@@ -361,6 +426,8 @@ function RedeemContent() {
               </label>
             </div>
 
+            
+
             {/* Take Photo Button */}
             <div className="mt-4 flex justify-center">
               <button className="h-11 px-4 rounded-xl border border-black/15 bg-white hover:bg-black/5 flex items-center gap-2 transition active:scale-95">
@@ -368,6 +435,21 @@ function RedeemContent() {
                 Take Photo
               </button>
             </div>
+
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left mt-6">
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <Info className="w-4 h-4 text-blue-600" />
+                      <p className="text-sm text-blue-800 font-medium">Before You Upload:</p>
+                    </div>
+                    <ul className="text-sm text-blue-700 ml-6 space-y-1">
+                      <li>• Snap a clear photo of your receipt from selected brand</li>
+                      <li>• Make sure the Total Amount, Order Date & Order Id are clearly visible</li>
+                      <li>• Make sure your receipt is from the last 1 month 🗓️</li>
+
+                    </ul>
+                  </div>
+                </div>
 
             {/* Amount */}
             <div className="mt-6">
@@ -397,6 +479,32 @@ function RedeemContent() {
               </div>
             </div>
 
+            <section className="mt-6 rounded-2xl border border-black/10 bg-white p-6">
+          <div className="flex items-center justify-between">
+            <h2 className="font-semibold">Get Cashback Now!</h2>
+            <div className="text-green-700 font-semibold text-xl">₹{redeemAmount}</div>
+          </div>
+          <div className="mt-4">
+            <input
+              type="range"
+              min={50}
+              max={500}
+              step={50}
+              value={redeemAmount}
+              onChange={(e) => {
+                const newAmount = Number(e.target.value);
+                setRedeemAmount(newAmount);
+                setAmount(String(newAmount));
+              }}
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+            />
+            <div className="flex justify-between text-sm text-black/60 mt-2">
+              <span>₹50</span>
+              <span>₹500</span>
+            </div>
+          </div>
+        </section>
+
             {/* UPI ID */}
             <div className="mt-4">
               <label className="text-sm font-medium">UPI ID</label>
@@ -413,15 +521,15 @@ function RedeemContent() {
               />
             </div>
 
-            {/* Notes */}
-            <div className="mt-4 space-y-2 text-sm">
-              <div className="rounded-lg bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3">
-                Verifying your transaction will take 2–3 business days
-              </div>
-              <div className="rounded-lg bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3">
-                You can get cashback on earned Corra Coins on purchase
-              </div>
-            </div>
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-left mt-6">
+                  <div className="flex items-start space-x-3">
+                    <Shield className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div className="space-y-1">
+                      <p className="text-sm text-green-800 font-medium">Your UPI ID is secured</p>
+                      <p className="text-xs text-green-700">We use bank-grade encryption to protect your payment information. Your UPI ID is only used for cashback transfers and is never shared with third parties.</p>
+                    </div>
+                  </div>
+                </div>
 
             {/* Actions */}
             <div className="mt-6 flex items-center justify-center">
@@ -434,12 +542,12 @@ function RedeemContent() {
                   canContinue ? "bg-green-700 hover:bg-green-800 active:scale-95" : "bg-black/20 cursor-not-allowed"
                 }`}
               >
-                Continue to Verify
+                Claim Cashback
               </button>
             </div>
           </div>
         </section>
-      </main>
+      </section>
       
       {/* Slider Styles */}
       <style jsx>{`
@@ -476,7 +584,7 @@ function RedeemContent() {
           background: #e5e7eb;
         }
       `}</style>
-    </div>
+    </>
   );
 }
 

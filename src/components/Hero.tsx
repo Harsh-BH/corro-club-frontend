@@ -191,11 +191,14 @@ const handleGetEarlyAccess = () => {
 							rx="2"
 						/>
 					</svg>
-					<p className="mt-3 text-lg sm:text-xl text-black/60 max-w-3xl mx-auto">
-						<span className="text-green-700 font-semibold">Corra Club</span> - A
-						multi-brand loyalty program with all your beloved brands. Get cashback on
-						all transactions
-					</p>
+					<motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto"
+            >
+              Earn <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-700">₹100/-</span> cashback on every ₹1000/- spend online. Show us your recent purchase & get Corra Coins for <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-700">FREE!</span>
+            </motion.p>
 
 
 				</div>

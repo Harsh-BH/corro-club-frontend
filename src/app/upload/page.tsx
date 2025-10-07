@@ -4,6 +4,9 @@ import { Suspense, useEffect, useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { ALL_BRANDS, type Brand } from "@/data/brands";
 import Image from "next/image";
+import { Info } from "lucide-react";
+import { motion } from "motion/react";
+
 
 export default function UploadPage() {
   return (
@@ -20,6 +23,24 @@ function UploadContent() {
   const [fileName, setFileName] = useState<string>("");
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [dragging, setDragging] = useState<boolean>(false);
+  function getRewardPercentage(brand: string) {
+    const rewardRates: { [key: string]: number } = {
+      'Adidas': 10,
+      'Decathlon': 8,
+      'Firstcry': 12,
+      'Urban Company': 15,
+      'Myntra': 7,
+      'Nykaa': 9,
+      'Pharmeasy': 11,
+      'Wakefit': 13
+    };
+    return rewardRates[brand] || 10; // Default to 10% if brand not found
+  }
+  const coins = useMemo(() => {
+    const amt = Number(amount);
+    if (Number.isNaN(amt)) return 0;
+    return Math.round(amt * (getRewardPercentage(selected.name) / 100));
+  }, [amount, selected]);
   
   // Brand carousel state
   const ITEMS_PER_PAGE = 3;
@@ -69,6 +90,8 @@ function UploadContent() {
 
   const canContinue = Boolean(fileName);
 
+  
+
   return (
     <>
       <h1 className="text-center text-3xl sm:text-4xl font-bold">
@@ -81,13 +104,22 @@ function UploadContent() {
       {/* Removed old inline stepper (now in layout) */}
 
       <section className="mt-10 rounded-2xl border border-black/10 shadow-soft bg-white animate-fade-up delay-100 relative">
-        <div className="px-6 py-6 border-b border-black/10">
-          <h2 className="text-xl sm:text-2xl font-semibold">
-            Upload Receipt for {selected.name}
-          </h2>
-          <p className="text-black/70 mt-2">
-            Upload a clear photo of your purchase receipt to earn Corra Coins
-          </p>
+        <div className="px-6 py-6 border-b border-black/10 text-center">
+        <div className="space-y-4">
+                  <div className="flex items-center justify-center gap-3">
+                    <h2 className="text-2xl font-semibold text-gray-900">
+                      Earn Corra Coins
+                    </h2>
+                    {/* CC Logo */}
+                    <div className="w-8 h-8 bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-200 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent rounded-full"></div>
+                      <span className="text-yellow-900 font-bold text-xs relative z-10 drop-shadow-sm">CC</span>
+                    </div>
+                  </div>
+                  <p className="text-gray-600">
+                    Upload your order receipt and get rewards instantly
+                  </p>
+                </div>
         </div>
         <div className="p-6">
           {/* Brand selector */}
@@ -121,21 +153,20 @@ function UploadContent() {
                           onClick={() => handleSelectBrand(b)}
                         >
                           <div
-                            className={`h-12 w-12 rounded-full grid place-items-center overflow-hidden ring-1 ring-black/10 transition-all duration-500 ease-out ${b.color || "bg-gray-100"} ${
+                            className={`h-12 w-12  grid place-items-center overflow-hidden  transition-all duration-500 ease-out  ${
                               selected.key === b.key ? "ring-green-300" : ""
                             }`}
                           >
-                            <Image
-                              src={b.icon}
-                              alt={b.name}
-                              width={48}
-                              height={48}
-                              className={`h-8 w-8 object-contain transition-all duration-500 ease-out ${
-                                selected.key === b.key ? "scale-110" : "scale-100"
-                              }`}
-                              unoptimized
-                              draggable={false}
-                            />
+                            {b.icon ? (
+                              <Image
+                                src={b.icon}
+                                alt={b.name}
+                                width={48}
+                                height={48}
+                              />
+                            ) : (
+                              <span className="text-xs font-semibold text-neutral-700">{b.short}</span>
+                            )}
                           </div>
                           <div className={`font-medium text-sm transition-colors duration-500 ease-out ${
                             selected.key === b.key ? "text-green-700" : "text-gray-700"
@@ -279,16 +310,92 @@ function UploadContent() {
             </div>
           </div>
 
-          {/* Requirements */}
-          <div className="rounded-xl border border-blue-200 bg-blue-50 text-blue-700 p-4 text-sm">
-            <ul className="list-disc pl-5 space-y-1">
-              <li>Make sure the receipt photo is clear</li>
-              <li>
-                Total transaction value & Unique Order Id must be present on the
-                receipt
-              </li>
-            </ul>
-          </div>
+                          {/* Reward Percentage Card */}
+                          <motion.div 
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 200, 
+                    damping: 15,
+                    delay: 0.3
+                  }}
+                  className="bg-gradient-to-r from-green-100 to-emerald-100 border-2 border-green-300 rounded-xl p-4 text-center shadow-lg relative overflow-hidden"
+                >
+                  {/* Celebratory sparkles */}
+                  <motion.div 
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      rotate: [0, 360, 0]
+                    }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute top-2 right-4 text-yellow-400 text-xl"
+                  >
+                    ✨
+                  </motion.div>
+                  
+                  <motion.div 
+                    animate={{ 
+                      scale: [1, 1.1, 1],
+                      rotate: [0, -360, 0]
+                    }}
+                    transition={{ 
+                      duration: 4, 
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 1.5
+                    }}
+                    className="absolute top-3 left-4 text-yellow-400 text-lg"
+                  >
+                    🎉
+                  </motion.div>
+                  
+                  <motion.div 
+                    animate={{ 
+                      scale: [1, 1.3, 1],
+                      rotate: [0, 180, 0]
+                    }}
+                    transition={{ 
+                      duration: 2.5, 
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.8
+                    }}
+                    className="absolute bottom-2 right-6 text-yellow-400 text-sm"
+                  >
+                    💰
+                  </motion.div>
+
+                  <motion.div 
+                    className="flex items-center justify-center space-x-2"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.5, duration: 0.6 }}
+                  >
+                  <motion.span 
+                      className="text-3xl font-bold text-green-700 bg-white/80 px-3 py-1 rounded-lg backdrop-blur-sm border border-green-200 shadow-sm"
+                      animate={{ 
+                        scale: [1, 1.05, 1] 
+                      }}
+                      transition={{ 
+                        duration: 2, 
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      {getRewardPercentage(selected.name)}%
+                    </motion.span>
+                    <span className="text-green-700 font-medium">
+                      worth rewards on purchase from {selected.name}
+                    </span>
+                  </motion.div>
+                </motion.div>
+
+
 
           {/* Dropzone */}
           <div className="mt-6">
@@ -347,6 +454,32 @@ function UploadContent() {
             </label>
           </div>
 
+<div className="mt-4 flex justify-center">
+          <button className="h-11 px-4 rounded-xl border border-black/15 bg-white hover:bg-black/5 flex items-center gap-2 transition active:scale-95">
+              <span className="h-6 w-6 rounded-md border border-black/15 grid place-items-center">
+                📷
+              </span>
+              Take Photo
+            </button>
+
+          </div>
+
+
+
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left mt-6">
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <Info className="w-4 h-4 text-blue-600" />
+                      <p className="text-sm text-blue-800 font-medium">Before You Upload:</p>
+                    </div>
+                    <ul className="text-sm text-blue-700 ml-6 space-y-1">
+                      <li>• Snap a clear photo of your receipt from selected brand</li>
+                      <li>• Make sure the Total Amount, Order Date & Order Id are clearly visible</li>
+                      <li>• Make sure your receipt is from the last 1 month 🗓️</li>
+                    </ul>
+                  </div>
+                </div>
+
           {/* Amount */}
           <div className="mt-6">
             <label className="text-sm font-medium">
@@ -365,24 +498,43 @@ function UploadContent() {
             </div>
           </div>
 
-          {/* Notes */}
-          <div className="mt-4 space-y-2 text-sm">
-            <div className="rounded-lg bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3">
-              Verifying your transaction will take 2–3 business days
+
+
+          {/* Coins available (below Transaction Value) */}
+          <div className="mt-6 relative rounded-2xl bg-amber-50 border border-amber-200 p-8 text-center overflow-hidden">
+            {/* Sparkles */}
+            <svg viewBox="0 0 24 24" className="pointer-events-none absolute -top-2 left-4 h-5 w-5 text-amber-500/70 animate-pulse" aria-hidden>
+              <path d="M12 2l2.5 6 6.5 2.5-6.5 2.5L12 21l-2.5-8L3 10.5 9.5 8 12 2z" fill="currentColor"/>
+            </svg>
+            <svg viewBox="0 0 24 24" className="pointer-events-none absolute -bottom-2 right-4 h-5 w-5 text-amber-500/70 animate-bounce" aria-hidden>
+              <path d="M12 3v18M3 12h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+            <div className="flex items-center justify-center gap-3 animate-coin-pop">
+              <span className="text-4xl font-bold">{coins}</span>
+              <motion.div 
+                className="relative"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.3, duration: 0.6, type: "spring" }}
+              >
+                <div className="w-10 h-10 bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-200 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent rounded-full"></div>
+                  <span className="text-yellow-900 font-bold text-sm relative z-10 drop-shadow-sm">CC</span>
+                </div>
+                {/* Shine effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent rounded-full"
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                />
+              </motion.div>
             </div>
-            <div className="rounded-lg bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3">
-              You can get cashback on earned Corra Coins on purchase
-            </div>
+            <div className="text-black/70 mt-1">Corra Coins Available</div>
           </div>
 
           {/* Actions */}
           <div className="mt-6 flex items-center justify-center gap-3">
-            <button className="h-11 px-4 rounded-xl border border-black/15 bg-white hover:bg-black/5 flex items-center gap-2 transition active:scale-95">
-              <span className="h-6 w-6 rounded-md border border-black/15 grid place-items-center">
-                📷
-              </span>
-              Take Photo
-            </button>
+
             <button
               onClick={() => {
                 if (!canContinue) return;
