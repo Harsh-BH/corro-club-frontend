@@ -49,7 +49,6 @@ function LoginContent() {
 
         <div className="flex justify-center">
           <PhoneVerification
-            autoAdvance
             onSuccess={() => {
               try {
                 if (typeof window !== "undefined") {

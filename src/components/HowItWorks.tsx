@@ -63,24 +63,24 @@ export default function HowItWorks() {
     {
       number: 1,
       title: "Upload Receipt",
-      description: "Upload receipt of latest order to verify details.",
+      description: "Snap & upload your latest order receipt — that's all it takes!",
       icon: UploadIcon,
       iconColor: "from-green-400 via-emerald-500 to-green-600",
       isActive: true,
     },
     {
       number: 2,
-      title: "Verify",
+      title: "Instant Corra Coins in your wallet",
       description:
-        "Get coins in your Corra Wallet. Convert to cash for next transaction.",
+        "We'll verify your purchase and credit coins instantly.",
       icon: ShieldCheck,
       iconColor: "from-blue-400 via-indigo-500 to-blue-600",
     },
     {
       number: 3,
-      title: "Earn Coins",
+      title: "Convert your Corra Coins to Cash",
       description:
-        "Upload proof of next transaction & get Corra coins to cash.",
+        "Get instant cash back on your next purchase.",
       highlight: "1 CorraCoin = ₹1",
       icon: Wallet,
       iconColor: "from-yellow-300 via-yellow-400 to-amber-500",

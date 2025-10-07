@@ -94,12 +94,7 @@ function UploadContent() {
 
   return (
     <>
-      <h1 className="text-center text-3xl sm:text-4xl font-bold">
-        Upload Receipt for {selected.name}
-      </h1>
-      <p className="text-center text-black/70 mt-2">
-        Upload your {selected.name} purchase receipt
-      </p>
+
 
       {/* Removed old inline stepper (now in layout) */}
 
