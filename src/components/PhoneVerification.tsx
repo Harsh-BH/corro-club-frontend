@@ -11,16 +11,14 @@ export interface PhoneVerificationProps {
   amount?: string;
   onSuccess?: (data: { phone: string; brand?: string; amount?: string }) => void;
   className?: string;
-  autoAdvance?: boolean; // if true, call onSuccess immediately after verified stage appears
 }
 
 export default function PhoneVerification({
   brand,
   amount,
   onSuccess,
-  autoAdvance = false
 }: PhoneVerificationProps) {
-  const [stage, setStage] = useState<"phone" | "otp" | "verified">("phone");
+  const [stage, setStage] = useState<"phone" | "otp">("phone");
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [sending, setSending] = useState(false);
@@ -33,12 +31,7 @@ export default function PhoneVerification({
     return () => clearInterval(t);
   }, [resendTimer]);
 
-  useEffect(() => {
-    if (stage === "verified" && autoAdvance && onSuccess) {
-      const t = setTimeout(() => onSuccess({ phone, brand, amount }), 800);
-      return () => clearTimeout(t);
-    }
-  }, [stage, autoAdvance, onSuccess, phone, brand, amount]);
+  // No verified state; verification will trigger onSuccess directly
 
   function sendOTP() {
     if (phone.length !== 10 || sending) return;
@@ -55,7 +48,7 @@ export default function PhoneVerification({
     setVerifying(true);
     setTimeout(() => {
       setVerifying(false);
-      setStage("verified");
+      onSuccess?.({ phone, brand, amount });
     }, 800);
   }
 
@@ -194,48 +187,9 @@ export default function PhoneVerification({
             </div>
           )}
 
-          {stage === "verified" && (
-            <div className="relative">
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-green-600 text-white grid place-items-center mx-auto mb-6 md:mb-8">
-                <svg viewBox="0 0 24 24" className="h-10 w-10" aria-hidden>
-                  <path
-                    d="M9 12l2 2 4-4M21 11.5a8.5 8.5 0 11-17 0 8.5 8.5 0 0117 0z"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Verified!</h2>
-              <p className="text-gray-600 mb-6 md:mb-8">
-                Phone verified successfully. {autoAdvance ? "Continuing..." : "Continue to next step."}
-              </p>
+
               
-              <div className="rounded-xl border border-green-200 bg-green-50 px-5 py-5 md:px-6 md:py-6 text-green-900 text-sm mb-6 md:mb-8">
-                <ul className="space-y-2 font-medium">
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-600">✓</span>
-                    <span>Mobile number verified</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-600">✓</span>
-                    <span>Secured account updates</span>
-                  </li>
-                </ul>
-              </div>
-              
-              {!autoAdvance && (
-                <Button
-                  onClick={() => onSuccess?.({ phone, brand, amount })}
-                  className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-2.5 md:py-3 rounded-lg"
-                >
-                  Continue
-                </Button>
-              )}
-            </div>
-          )}
+
         </Card>
       </motion.div>
     </div>

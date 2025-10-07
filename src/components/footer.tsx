@@ -28,7 +28,7 @@ export function Footer() {
                 href="mailto:pbhutani@clubcorra.com" 
                 className="text-white hover:text-green-400 transition-colors duration-300 font-medium"
               >
-                rohit@corra.club
+                pbhutani@clubcorra.com
               </a>
             </div>
           </motion.div>
@@ -45,7 +45,7 @@ export function Footer() {
             
             {/* Instagram */}
             <motion.a
-              href="/https://www.instagram.com/thecorraclub"
+              href="https://www.instagram.com/thecorraclub"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center hover:shadow-lg transition-all duration-300 group"
@@ -55,7 +55,7 @@ export function Footer() {
 
             {/* LinkedIn */}
             <motion.a
-              href="/https://www.linkedin.com/company/the-corra-club/posts/?feedView=all"
+              href="https://www.linkedin.com/company/the-corra-club/posts/?feedView=all"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center hover:shadow-lg transition-all duration-300 group"
