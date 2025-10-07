@@ -144,17 +144,16 @@ function RedeemContent() {
                                 selected.key === b.key ? "ring-green-300" : ""
                               }`}
                             >
-                              <Image
-                                src={b.icon}
-                                alt={b.name}
-                                width={48}
-                                height={48}
-                                className={`h-8 w-8 object-contain transition-all duration-500 ease-out ${
-                                  selected.key === b.key ? "scale-110" : "scale-100"
-                                }`}
-                                unoptimized
-                                draggable={false}
-                              />
+                          {b.icon ? (
+                            <Image
+                              src={b.icon}
+                              alt={b.name}
+                              width={48}
+                              height={48}
+                            />
+                          ) : (
+                            <span className="text-xs font-semibold text-neutral-700">{b.short}</span>
+                          )}
                             </div>
                             <div className={`font-medium text-sm transition-colors duration-500 ease-out ${
                               selected.key === b.key ? "text-green-700" : "text-gray-700"
@@ -238,15 +237,16 @@ function RedeemContent() {
                           <div
                             className={`h-6 w-6 rounded-full grid place-items-center overflow-hidden ring-1 ring-black/10 ${b.color || "bg-gray-100"}`}
                           >
+                          {b.icon ? (
                             <Image
                               src={b.icon}
                               alt={b.name}
                               width={24}
                               height={24}
-                              className="h-4 w-4 object-contain"
-                              unoptimized
-                              draggable={false}
                             />
+                          ) : (
+                            <span className="text-xs font-semibold text-neutral-700">{b.short}</span>
+                          )}
                           </div>
                           <span className="truncate text-xs">{b.name}</span>
                         </button>
