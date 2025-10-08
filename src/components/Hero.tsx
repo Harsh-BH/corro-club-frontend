@@ -57,16 +57,17 @@ const handleGetEarlyAccess = () => {
 			<div className="absolute bottom-20 left-10 w-56 h-56 bg-gradient-to-r from-green-300/15 to-emerald-400/15 rounded-full blur-3xl"></div>
 			<div className="absolute top-1/2 left-1/4 w-32 h-32 bg-gradient-to-r from-teal-300/10 to-emerald-300/10 rounded-full blur-2xl"></div>
 
-			{/* Top right login prompt */}
-			<div className="absolute top-4 right-4 z-20 flex items-center gap-3 text-sm">
-<span className="text-gray-600">Already a member?</span>
+			{/* Top right login prompt - Mobile responsive */}
+			<div className="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+				<span className="text-gray-600 hidden sm:inline">Already a member?</span>
 				<button
 					onClick={() => {
 						window.location.href = "/login?redirect=dashboard";
 					}}
-					className="bg-white/90 backdrop-blur-sm border-2 border-green-600 hover:border-green-700 text-green-600 hover:text-green-700 hover:bg-green-50 px-6 py-2 font-semibold rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
+					className="bg-white/90 backdrop-blur-sm border-2 border-green-600 hover:border-green-700 text-green-600 hover:text-green-700 hover:bg-green-50 px-3 py-2 sm:px-6 font-semibold rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-xs sm:text-sm touch-target"
             >
-					Log-In
+					<span className="sm:hidden">Login</span>
+					<span className="hidden sm:inline">Log-In</span>
 				</button>
 			</div>
 
@@ -82,7 +83,7 @@ const handleGetEarlyAccess = () => {
 							className="mx-auto mb-6 rounded-full"
 						/>
 					</div>
-					<h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight">
+					<h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight px-4">
 						One Club.
 						<span className="text-green-700"> Many Brands.</span>
 						<br className="hidden sm:block" />
@@ -193,7 +194,7 @@ const handleGetEarlyAccess = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto"
+              className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto px-4"
             >
               Earn <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-700">₹100/-</span> cashback on every ₹1000/- spend online. Show us your recent purchase & get Corra Coins for <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-700">FREE!</span>
             </motion.p>
@@ -238,21 +239,22 @@ const handleGetEarlyAccess = () => {
                 placeholder="Enter your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 h-14 text-lg px-6 border-0 focus:ring-0 bg-transparent"
+                className="flex-1 h-12 sm:h-14 text-base sm:text-lg px-4 sm:px-6 border-0 focus:ring-0 bg-transparent"
               />
               <Button
                 onClick={handleGetEarlyAccess}
                 variant="outline"
-                className="border-2 border-green-600 hover:border-green-700 text-green-600 hover:text-green-700 hover:bg-green-50 px-8 py-4 h-14 text-lg font-semibold rounded-none sm:rounded-r-lg shadow-none hover:shadow-none transition-all duration-300 transform hover:scale-105 whitespace-nowrap bg-white/90"
+                className="border-2 border-green-600 hover:border-green-700 text-green-600 hover:text-green-700 hover:bg-green-50 px-4 sm:px-8 py-3 sm:py-4 h-12 sm:h-14 text-sm sm:text-lg font-semibold rounded-none sm:rounded-r-lg shadow-none hover:shadow-none transition-all duration-300 transform hover:scale-105 whitespace-nowrap bg-white/90 touch-target"
               >
-                Get Early Access
+                <span className="sm:hidden">Get Access</span>
+                <span className="hidden sm:inline">Get Early Access</span>
               </Button>
             </div>
 
           </motion.div>
 
-				<div className="relative w-full max-w-2xl mx-auto">
-					<div className="relative h-96 w-full">
+				<div className="relative w-full max-w-2xl mx-auto px-4 mt-8 sm:mt-12">
+					<div className="relative h-64 sm:h-80 md:h-96 w-full">
 						{/* Decorative background glows (removed blue) */}
 						<div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-green-200/80 blur-3xl" aria-hidden></div>
 						<div className="pointer-events-none absolute -bottom-10 -right-12 h-48 w-48 rounded-full bg-green-300/70 blur-3xl" aria-hidden></div>
@@ -294,19 +296,19 @@ const handleGetEarlyAccess = () => {
 								</svg>
 								{/* Center logo with ripple */}
 								<div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-									<div className="center-pulse h-32 w-32 rounded-full bg-white grid place-items-center shadow-lg overflow-hidden">
+									<div className="center-pulse h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 rounded-full bg-white grid place-items-center shadow-lg overflow-hidden">
 										<Image
 											src="/corro_logo.png"
 											alt="Corra Club"
 											width={128}
 											height={128}
-											className="rounded-full object-cover"
+											className="rounded-full object-cover w-full h-full"
 										/>
 									</div>
 								</div>
 
                                 {/* Brand orbit */}
-                                <div className="absolute inset-0">
+                                 <div className="absolute inset-0">
                                     {circleBrands.map((b, index) => {
                                         const count = circleBrands.length || 1;
                                         const angle = (360 / count) * index;
@@ -320,7 +322,7 @@ const handleGetEarlyAccess = () => {
                                                 }}
                                             >
                                                 <div
-                                                    className={`relative h-12 w-12  grid place-items-center overflow-hidden brand-orbit transition-transform duration-300 group-hover:scale-110 ring-1 ring-black/10`}
+                                                    className={`relative h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 grid place-items-center overflow-hidden brand-orbit transition-transform duration-300 group-hover:scale-110 ring-1 ring-black/10`}
                                                 >
 													{b.icon ? (
 														<Image
@@ -328,6 +330,7 @@ const handleGetEarlyAccess = () => {
 															alt={b.name}
 															width={40}
 															height={40}
+															className="w-full h-full object-contain"
 														/>
 													) : (
 														<span className="text-xs font-semibold text-neutral-700">{b.short}</span>

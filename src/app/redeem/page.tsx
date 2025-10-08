@@ -176,14 +176,14 @@ function RedeemContent() {
                 </button>
               </div>
 
-              {/* Pagination Dots */}
-              <div className="mt-3 flex justify-center gap-2">
+              {/* Pagination Dots - Hidden on mobile */}
+              <div className="mt-3 hidden sm:flex justify-center gap-2">
                 {Array.from({ length: totalPages }).map((_, i) => (
                   <button
                     key={i}
                     aria-label={`Go to brand set ${i + 1}`}
                     onClick={() => setPage(i)}
-                    className={`relative h-3 w-3 rounded-full transition-all duration-500 ease-out hover:scale-125 group/dot  ${
+                    className={`relative h-3 w-3 rounded-full transition-all duration-500 ease-out hover:scale-125 group/dot ${
                       page === i 
                         ? "bg-green-600 scale-125 shadow-md" 
                         : "bg-black/20 hover:bg-black/30 hover:scale-110"

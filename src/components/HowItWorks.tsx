@@ -92,14 +92,14 @@ export default function HowItWorks() {
       {/* Background glows */}
       <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-green-200/40 blur-3xl" aria-hidden></div>
       <div className="pointer-events-none absolute -bottom-10 -right-12 h-48 w-48 rounded-full bg-blue-200/40 blur-3xl" aria-hidden></div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
         <div className="animate-fade-up relative">
           <motion.h2 
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-3xl font-bold text-gray-900 mb-4"
+              className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 px-4"
             >
               Shop. Upload. Earn.<br />
               Get Cash Back with <span className="text-green-600">Corra Coins</span>
@@ -128,17 +128,17 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-gray-600 mb-12"
+              className="text-gray-600 mb-8 sm:mb-12 px-4"
             >
               3 simple steps to your first cash back
             </motion.p>
           
 
           {/* Animated Timeline Container */}
-          <div className="relative pl-8">
+          <div className="relative pl-6 sm:pl-8">
             {/* Animated Connecting Line */}
             <motion.div 
-              className="absolute left-6 top-0 w-0.5 bg-gradient-to-b from-green-400 via-emerald-500 to-green-600 rounded-full"
+              className="absolute left-4 sm:left-6 top-0 w-0.5 bg-gradient-to-b from-green-400 via-emerald-500 to-green-600 rounded-full"
               initial={{ height: 0 }}
               whileInView={{ height: "85%" }}
               transition={{ duration: 1.5, delay: 0.3 }}
@@ -146,7 +146,7 @@ export default function HowItWorks() {
             />
 
             {/* Steps with Enhanced Animation */}
-            <div className="space-y-12">
+            <div className="space-y-8 sm:space-y-12">
               {steps.map((step, index) => (
                 <motion.div
                   key={step.number}
@@ -163,7 +163,7 @@ export default function HowItWorks() {
                 >
                   {/* Animated Circle Node */}
                   <motion.div 
-                    className="absolute -left-8 top-2"
+                    className="absolute -left-6 sm:-left-8 top-2"
                     initial={{ scale: 0, rotate: -180 }}
                     whileInView={{ scale: 1, rotate: 0 }}
                     transition={{ 
@@ -192,7 +192,7 @@ export default function HowItWorks() {
                       )}
                       
                       {/* Main circle */}
-                      <div className={`relative w-12 h-12 bg-gradient-to-br ${step.iconColor} rounded-full flex items-center justify-center shadow-lg border-2 border-white group-hover:shadow-xl transition-shadow duration-300`}>
+                      <div className={`relative w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${step.iconColor} rounded-full flex items-center justify-center shadow-lg border-2 border-white group-hover:shadow-xl transition-shadow duration-300`}>
                         <motion.div 
                           className="text-white"
                           initial={{ scale: 0 }}
@@ -205,7 +205,7 @@ export default function HowItWorks() {
                           }}
                           viewport={{ once: true }}
                         >
-                          <step.icon className="w-5 h-5" />
+                          <step.icon className="w-4 h-4 sm:w-5 sm:h-5" />
                         </motion.div>
                         
                         {/* Inner shine effect - only for active step */}
@@ -222,13 +222,13 @@ export default function HowItWorks() {
 
                   {/* Content Card */}
                   <motion.div
-                    className={`bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 ml-8 border ${step.isActive ? 'border-green-200 bg-green-50/30' : 'border-gray-100'} group-hover:border-green-200`}
+                    className={`bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4 sm:p-6 ml-6 sm:ml-8 border ${step.isActive ? 'border-green-200 bg-green-50/30' : 'border-gray-100'} group-hover:border-green-200`}
                     whileHover={{ scale: 1.02, y: -2 }}
                     transition={{ type: "spring", bounce: 0.4 }}
                   >
                     <div className="space-y-3">
                       <motion.h3 
-                        className={`text-xl font-bold ${step.isActive ? 'text-green-700' : 'text-gray-900'} group-hover:text-green-700 transition-colors duration-300 ${step.number === 3 ? 'flex items-center gap-2' : ''}`}
+                        className={`text-lg sm:text-xl font-bold ${step.isActive ? 'text-green-700' : 'text-gray-900'} group-hover:text-green-700 transition-colors duration-300 ${step.number === 3 ? 'flex items-center gap-2' : ''}`}
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: index * 0.3 + 1.2 }}
@@ -307,8 +307,8 @@ export default function HowItWorks() {
                           </motion.div>
                         )}
                       </motion.div>
-                          </div>
-                    
+                    </div>
+
                     {/* Decorative arrow for better flow */}
                     {index < steps.length - 1 && (
                       <motion.div
@@ -330,8 +330,8 @@ export default function HowItWorks() {
                   </motion.div>
                 </motion.div>
               ))}
-                      </div>
-                    </div>
+            </div>
+          </div>
 
           {/* Bottom decorative element */}
           <motion.div
@@ -358,7 +358,7 @@ export default function HowItWorks() {
         </div>
 
         <div id="brands" className="w-full">
-          <div className="relative rounded-2xl border border-black/10 bg-white shadow-sm p-6 animate-fade-up delay-100">
+          <div className="relative rounded-2xl border border-black/10 bg-white shadow-sm p-4 sm:p-6 animate-fade-up delay-100">
             {/* Card accents */}
             <svg
               viewBox="0 0 28 28"
@@ -378,7 +378,7 @@ export default function HowItWorks() {
             
             {/* Select a brand title */}
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-800">Select a brand</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-gray-800">Select a brand</h3>
             </div>
             
             <div className="flex items-center gap-3">
@@ -386,9 +386,9 @@ export default function HowItWorks() {
               <button
                 onClick={prevPage}
                 aria-label="Previous brands"
-                className="h-8 w-8 rounded-full border border-black/10 grid place-items-center hover:bg-black/5 hover:scale-110 transition-all duration-500 ease-out group/prev"
+                className="h-8 w-8 sm:h-10 sm:w-10 rounded-full border border-black/10 grid place-items-center hover:bg-black/5 hover:scale-110 transition-all duration-500 ease-out group/prev touch-target"
               >
-                <span className="group-hover/prev:-translate-x-0.5 transition-transform duration-300 ease-out">‹</span>
+                <span className="group-hover/prev:-translate-x-0.5 transition-transform duration-300 ease-out text-sm sm:text-base">‹</span>
               </button>
 
               {/* Smooth scrolling brands container */}
@@ -400,32 +400,33 @@ export default function HowItWorks() {
                   {Array.from({ length: totalPages }).map((_, pageIndex) => (
                     <div key={pageIndex} className="flex gap-4 min-w-full">
                       {BRANDS.slice(pageIndex * ITEMS_PER_PAGE, pageIndex * ITEMS_PER_PAGE + ITEMS_PER_PAGE).map(b => (
-                        <button
-                          key={b.key}
-                          className={`flex-1 rounded-lg border-2 p-4 flex flex-col items-center gap-3 text-center transition-all duration-500 ease-out mt-4 mb-4 ml-2 mr-4${
+                  <button
+                    key={b.key}
+                          className={`flex-1 rounded-lg border-2 p-3 sm:p-4 flex flex-col items-center gap-2 sm:gap-3 text-center transition-all duration-500 ease-out mt-4 mb-4 ml-2 mr-4 touch-target${
                             selected.key === b.key 
                               ? "border-green-600 bg-green-50 scale-105 shadow-md" 
                               : "border-black/10 hover:bg-black/5 hover:scale-102 hover:border-green-300"
-                          }`}
-                          onClick={() => handleSelectBrand(b)}
-                        >
-                          <div
-                            className={`h-12 w-12  grid place-items-center overflow-hidden  transition-all duration-500 ease-out ${
+                    }`}
+                    onClick={() => handleSelectBrand(b)}
+                  >
+                    <div
+                            className={`h-10 w-10 sm:h-12 sm:w-12 grid place-items-center overflow-hidden transition-all duration-500 ease-out ${
                               selected.key === b.key ? "ring-green-300" : ""
                             }`}
-                          >
+                    >
                             {b.icon ? (
-                              <Image
-                                src={b.icon}
-                                alt={b.name}
+                      <Image
+                        src={b.icon}
+                        alt={b.name}
                                 width={48}
                                 height={48}
+                                className="w-full h-full object-contain"
                               />
                             ) : (
                               <span className="text-xs font-semibold text-neutral-700">{b.short}</span>
                             )}
                           </div>
-                          <div className={`font-medium text-sm transition-colors duration-500 ease-out ${
+                          <div className={`font-medium text-xs sm:text-sm transition-colors duration-500 ease-out ${
                             selected.key === b.key ? "text-green-700" : "text-gray-700"
                           }`}>
                             {b.name}
@@ -433,27 +434,27 @@ export default function HowItWorks() {
                         </button>
                       ))}
                     </div>
-                  ))}
+                ))}
                 </div>
               </div>
 
               <button
                 onClick={nextPage}
                 aria-label="Next brands"
-                className="h-8 w-8 rounded-full border border-black/10 grid place-items-center hover:bg-black/5 hover:scale-110 transition-all duration-500 ease-out group/next"
+                className="h-8 w-8 sm:h-10 sm:w-10 rounded-full border border-black/10 grid place-items-center hover:bg-black/5 hover:scale-110 transition-all duration-500 ease-out group/next touch-target"
               >
-                <span className="group-hover/next:translate-x-0.5 transition-transform duration-300 ease-out">›</span>
+                <span className="group-hover/next:translate-x-0.5 transition-transform duration-300 ease-out text-sm sm:text-base">›</span>
               </button>
             </div>
 
-            {/* Enhanced Pagination Dots with smooth animations */}
-            <div className="mt-3 flex justify-center gap-2">
+            {/* Enhanced Pagination Dots with smooth animations - Hidden on mobile */}
+            <div className="mt-3 hidden sm:flex justify-center gap-2">
               {Array.from({ length: totalPages }).map((_, i) => (
                 <button
                   key={i}
                   aria-label={`Go to brand set ${i + 1}`}
                   onClick={() => setPage(i)}
-                  className={`relative h-3 w-3 rounded-full transition-all duration-500 ease-out hover:scale-125 group/dot  ${
+                  className={`relative h-3 w-3 rounded-full transition-all duration-500 ease-out hover:scale-125 group/dot ${
                     page === i 
                       ? "bg-green-600 scale-125 shadow-md" 
                       : "bg-black/20 hover:bg-black/30 hover:scale-110"
@@ -508,9 +509,9 @@ export default function HowItWorks() {
                           className={`h-6 w-6 rounded-full grid place-items-center overflow-hidden ring-1 ring-black/10 ${b.color}`}
                         >
                           {b.icon ? (
-                            <Image
-                              src={b.icon}
-                              alt={b.name}
+                          <Image
+                            src={b.icon}
+                            alt={b.name}
                               width={24}
                               height={24}
                             />
@@ -632,7 +633,7 @@ export default function HowItWorks() {
                       <p className="text-sm text-blue-800">Use your earned coins for cashback on your next purchase</p>
                     </div>
                   </div>
-                </div>
+            </div>
 
             <div className="mt-6">
               <button

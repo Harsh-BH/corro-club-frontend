@@ -42,7 +42,7 @@ function LoginContent() {
       <div className="absolute top-32 right-1/4 w-36 h-36 bg-gradient-to-br from-emerald-200/20 to-green-300/20 rounded-full blur-3xl" />
       <div className="absolute bottom-40 left-1/4 w-44 h-44 bg-gradient-to-tr from-green-200/15 to-emerald-300/15 rounded-full blur-3xl" />
 
-      <main className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
+      <main className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
         <div className="mb-6">
           <BackButton />
         </div>
