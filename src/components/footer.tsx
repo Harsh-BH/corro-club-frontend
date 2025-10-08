@@ -10,7 +10,7 @@ export function Footer() {
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 via-emerald-400 to-green-400"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
           {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -26,7 +26,7 @@ export function Footer() {
               <p className="text-gray-300 text-sm">Contact Us</p>
               <a 
                 href="mailto:pbhutani@clubcorra.com" 
-                className="text-white hover:text-green-400 transition-colors duration-300 font-medium"
+                className="text-white hover:text-green-400 transition-colors duration-300 font-medium text-sm sm:text-base break-all"
               >
                 pbhutani@clubcorra.com
               </a>
@@ -39,29 +39,31 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="flex items-center gap-6"
+            className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6"
           >
             <p className="text-gray-300 text-sm">Follow us on</p>
             
-            {/* Instagram */}
-            <motion.a
-              href="https://www.instagram.com/thecorraclub"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center hover:shadow-lg transition-all duration-300 group"
-            >
-              <Instagram className="w-5 h-5 text-white group-hover:scale-110 transition-transform duration-300" />
-            </motion.a>
+            <div className="flex items-center gap-4">
+              {/* Instagram */}
+              <motion.a
+                href="https://www.instagram.com/thecorraclub"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center hover:shadow-lg transition-all duration-300 group touch-target"
+              >
+                <Instagram className="w-5 h-5 text-white group-hover:scale-110 transition-transform duration-300" />
+              </motion.a>
 
-            {/* LinkedIn */}
-            <motion.a
-              href="https://www.linkedin.com/company/the-corra-club/posts/?feedView=all"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center hover:shadow-lg transition-all duration-300 group"
-            >
-              <Linkedin className="w-5 h-5 text-white group-hover:scale-110 transition-transform duration-300" />
-            </motion.a>
+              {/* LinkedIn */}
+              <motion.a
+                href="https://www.linkedin.com/company/the-corra-club/posts/?feedView=all"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center hover:shadow-lg transition-all duration-300 group touch-target"
+              >
+                <Linkedin className="w-5 h-5 text-white group-hover:scale-110 transition-transform duration-300" />
+              </motion.a>
+            </div>
           </motion.div>
         </div>
 

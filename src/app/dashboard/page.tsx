@@ -60,18 +60,18 @@ export function WalletScreen({ onBack, onContinueToUpload }: WalletScreenProps) 
         <Image src="/corro_logo.png" alt="Corra Club" width={96} height={96} />
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-8">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="space-y-6"
         >
           {/* Welcome Header */}
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 px-4">
               Welcome, {userData.phoneNumber}!
             </h2>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 px-4">
               This is your Corra Wallet. You can redeem upto <span className="font-bold">50%</span> of coins & earn more by showing your recent purchase
             </p>
           </div>
@@ -152,7 +152,7 @@ export function WalletScreen({ onBack, onContinueToUpload }: WalletScreenProps) 
               {/* Shimmer Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 opacity-0 animate-pulse"></div>
 
-              <CardContent className="p-6 relative z-10">
+              <CardContent className="p-4 sm:p-6 relative z-10">
                 <div className="text-center mb-4">
                   {/* Enhanced CC Logo */}
                   <motion.div 
@@ -186,7 +186,7 @@ export function WalletScreen({ onBack, onContinueToUpload }: WalletScreenProps) 
                       ease: "easeInOut" 
                     }}
                   >
-                    <h1 className="text-4xl font-black text-transparent bg-gradient-to-r from-yellow-700 via-amber-600 to-orange-600 bg-clip-text drop-shadow-lg mb-1">
+                    <h1 className="text-3xl sm:text-4xl font-black text-transparent bg-gradient-to-r from-yellow-700 via-amber-600 to-orange-600 bg-clip-text drop-shadow-lg mb-1">
                       {userData.totalCoins.toLocaleString()}
                     </h1>
                     <motion.p 
@@ -202,7 +202,7 @@ export function WalletScreen({ onBack, onContinueToUpload }: WalletScreenProps) 
                         repeat: Infinity,
                         ease: "easeInOut" 
                       }}
-                      className="text-xl font-bold text-orange-600 tracking-wide"
+                      className="text-lg sm:text-xl font-bold text-orange-600 tracking-wide"
                     >
                       Corra Coins
                     </motion.p>
@@ -215,21 +215,21 @@ export function WalletScreen({ onBack, onContinueToUpload }: WalletScreenProps) 
                     whileHover={{ scale: 1.05 }}
                     className="text-center flex-1"
                   >
-                    <div className="text-xl font-bold text-green-600 mb-1">{userData.earned.toLocaleString()}</div>
-                    <div className="text-sm font-medium text-gray-600 flex items-center justify-center gap-1">
+                    <div className="text-lg sm:text-xl font-bold text-green-600 mb-1">{userData.earned.toLocaleString()}</div>
+                    <div className="text-xs sm:text-sm font-medium text-gray-600 flex items-center justify-center gap-1">
                       <span>💰</span>
                       <span>Earned</span>
                     </div>
                   </motion.div>
                   
-                  <div className="w-px h-10 bg-amber-300 mx-4"></div>
+                  <div className="w-px h-8 sm:h-10 bg-amber-300 mx-2 sm:mx-4"></div>
                   
                   <motion.div 
                     whileHover={{ scale: 1.05 }}
                     className="text-center flex-1"
                   >
-                    <div className="text-xl font-bold text-blue-600 mb-1">{userData.redeemed}</div>
-                    <div className="text-sm font-medium text-gray-600 flex items-center justify-center gap-1">
+                    <div className="text-lg sm:text-xl font-bold text-blue-600 mb-1">{userData.redeemed}</div>
+                    <div className="text-xs sm:text-sm font-medium text-gray-600 flex items-center justify-center gap-1">
                       <span>🎁</span>
                       <span>Redeemed</span>
                     </div>
@@ -247,28 +247,28 @@ export function WalletScreen({ onBack, onContinueToUpload }: WalletScreenProps) 
 
           {/* Transaction History */}
           <Card>
-            <CardContent className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <History className="w-5 h-5 text-blue-600" />
+            <CardContent className="p-4 sm:p-6">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <History className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                 Transaction History
               </h3>
               
               <div className="space-y-3">
                 {transactionHistory.map((transaction) => (
                   <div key={transaction.id} className="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-lg">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-100 rounded-full flex items-center justify-center text-sm sm:text-lg">
                         {transaction.logo}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-gray-900 text-sm sm:text-base">
                           {transaction.type === 'earned' ? 'Earned Coins' : 'Redeemed'}
                         </p>
-                        <p className="text-sm text-gray-500">{transaction.brand}</p>
+                        <p className="text-xs sm:text-sm text-gray-500">{transaction.brand}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className={`font-semibold ${transaction.type === 'earned' ? 'text-green-600' : 'text-red-500'}`}>
+                      <p className={`font-semibold text-sm sm:text-base ${transaction.type === 'earned' ? 'text-green-600' : 'text-red-500'}`}>
                         {transaction.type === 'earned' ? '+' : '-'}₹{transaction.amount}
                       </p>
                       <p className="text-xs text-gray-500">{transaction.date}</p>
@@ -282,7 +282,7 @@ export function WalletScreen({ onBack, onContinueToUpload }: WalletScreenProps) 
           {/* Primary CTA */}
           <Button
             onClick={handleGetCashback}
-            className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-4 text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 touch-target"
           >
             Get Cashback Now →
           </Button>
@@ -290,10 +290,10 @@ export function WalletScreen({ onBack, onContinueToUpload }: WalletScreenProps) 
           {/* Secondary CTA */}
           <Button
             variant="outline"
-            className="w-full border-2 border-green-600 text-green-600 hover:bg-green-50 py-3 text-base font-semibold rounded-lg flex items-center justify-center gap-2"
+            className="w-full border-2 border-green-600 text-green-600 hover:bg-green-50 py-3 text-sm sm:text-base font-semibold rounded-lg flex items-center justify-center gap-2 touch-target"
           >
             <span>Earn More</span>
-            <div className="w-6 h-6 bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-sm border border-yellow-200 relative overflow-hidden">
+            <div className="w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-br from-yellow-300 via-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-sm border border-yellow-200 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent rounded-full"></div>
               <span className="text-yellow-900 font-bold text-xs relative z-10 drop-shadow-sm">CC</span>
             </div>
